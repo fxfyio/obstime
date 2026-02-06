@@ -17,162 +17,240 @@
     }
 
     .time-card {
-      padding: 20px 40px;
-      border-radius: 16px;
+      padding: 18px 36px;
+      border-radius: 12px;
       text-align: center;
-      min-width: 320px;
+      min-width: 280px;
     }
 
     .time-display {
       font-size: 48px;
-      font-weight: 700;
-      letter-spacing: 2px;
+      font-weight: 600;
+      letter-spacing: 1px;
       font-variant-numeric: tabular-nums;
-      min-width: 280px;
-      display: inline-block;
     }
 
     .date-display {
-      font-size: 18px;
-      margin-top: 8px;
-      opacity: 0.9;
+      font-size: 16px;
+      margin-top: 6px;
+      opacity: 0.85;
     }
 
-    /* 霓虹 */
-    .style-neon { background: rgba(0, 0, 0, 0.8); border: 2px solid #00f3ff; box-shadow: 0 0 20px rgba(0, 243, 255, 0.5); }
-    .style-neon .time-display { color: #00f3ff; text-shadow: 0 0 10px #00f3ff, 0 0 20px #00f3ff; font-family: 'Orbitron', monospace; }
-    .style-neon .date-display { color: #ff00ff; text-shadow: 0 0 10px #ff00ff; }
+    /* 1. 现代白 */
+    .style-white {
+      background: #fff;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    .style-white .time-display { color: #18181b; font-family: 'JetBrains Mono', monospace; }
+    .style-white .date-display { color: #71717a; }
 
-    /* 赛博朋克 */
-    .style-cyber { background: linear-gradient(135deg, #0d0221, #150734); border: 2px solid #ff2a6d; box-shadow: 0 0 30px rgba(255, 42, 109, 0.4); }
-    .style-cyber .time-display { color: #05d9e8; font-family: 'Orbitron', monospace; text-shadow: 0 0 10px #05d9e8, 0 0 20px #ff2a6d; }
-    .style-cyber .date-display { color: #ff2a6d; }
+    /* 2. 现代黑 */
+    .style-black {
+      background: #18181b;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+    .style-black .time-display { color: #fafafa; font-family: 'JetBrains Mono', monospace; }
+    .style-black .date-display { color: #a1a1aa; }
 
-    /* 矩阵 */
-    .style-matrix { background: #000; border: 1px solid #00ff00; }
-    .style-matrix .time-display { color: #00ff00; font-family: 'Fira Code', monospace; text-shadow: 0 0 10px #00ff00; }
-    .style-matrix .date-display { color: #00cc00; }
+    /* 3. 透明白字 */
+    .style-light { background: transparent; }
+    .style-light .time-display { color: #fff; font-family: 'Roboto Mono', monospace; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+    .style-light .date-display { color: rgba(255,255,255,0.9); text-shadow: 0 1px 4px rgba(0,0,0,0.4); }
 
-    /* 极光 */
-    .style-aurora { background: linear-gradient(135deg, #1a1a2e, #0a192f); border: 1px solid rgba(100, 255, 218, 0.3); }
-    .style-aurora .time-display { background: linear-gradient(90deg, #64ffda, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'JetBrains Mono', monospace; }
-    .style-aurora .date-display { color: #64ffda; }
+    /* 4. 透明黑字 */
+    .style-dark { background: transparent; }
+    .style-dark .time-display { color: #18181b; font-family: 'Roboto Mono', monospace; text-shadow: 0 1px 4px rgba(255,255,255,0.3); }
+    .style-dark .date-display { color: #3f3f46; }
 
-    /* 蒸汽波 */
-    .style-vaporwave { background: linear-gradient(180deg, #ff71ce, #01cdfe, #05ffa1); }
-    .style-vaporwave .time-display { color: #fff; font-family: 'Orbitron', monospace; text-shadow: 3px 3px 0 #ff71ce; }
-    .style-vaporwave .date-display { color: #fff; }
+    /* 5. 石墨 */
+    .style-graphite {
+      background: linear-gradient(135deg, #27272a 0%, #3f3f46 100%);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    .style-graphite .time-display { color: #e4e4e7; font-family: 'IBM Plex Mono', monospace; }
+    .style-graphite .date-display { color: #a1a1aa; }
 
-    /* LED */
-    .style-led { background: #111; border: 3px solid #222; border-radius: 8px; }
-    .style-led .time-display { color: #ff0000; font-family: 'Orbitron', monospace; text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; }
-    .style-led .date-display { color: #ff3333; }
+    /* 6. 深蓝 */
+    .style-navy {
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d4a6f 100%);
+      box-shadow: 0 4px 20px rgba(30,58,95,0.3);
+    }
+    .style-navy .time-display { color: #e0f2fe; font-family: 'Fira Code', monospace; }
+    .style-navy .date-display { color: #7dd3fc; }
 
-    /* 火焰 */
-    .style-fire { background: linear-gradient(180deg, #1a0a00, #2d1810); border: 2px solid #ff4500; }
-    .style-fire .time-display { background: linear-gradient(180deg, #ffff00, #ff8c00, #ff4500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Orbitron', monospace; }
-    .style-fire .date-display { color: #ff8c00; }
+    /* 7. 蓝色 */
+    .style-blue {
+      background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+      box-shadow: 0 4px 20px rgba(37,99,235,0.3);
+    }
+    .style-blue .time-display { color: #fff; font-family: 'Fira Code', monospace; }
+    .style-blue .date-display { color: #bfdbfe; }
 
-    /* 金色 */
-    .style-gold { background: linear-gradient(135deg, #1a1a1a, #2d2d2d); border: 2px solid #ffd700; }
-    .style-gold .time-display { background: linear-gradient(180deg, #ffd700, #ffb700, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Orbitron', monospace; }
-    .style-gold .date-display { color: #ffd700; }
+    /* 8. 靛蓝 */
+    .style-indigo {
+      background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+      box-shadow: 0 4px 20px rgba(79,70,229,0.3);
+    }
+    .style-indigo .time-display { color: #fff; font-family: 'Space Mono', monospace; }
+    .style-indigo .date-display { color: #c7d2fe; }
 
-    /* 渐变 */
-    .style-gradient { background: linear-gradient(135deg, #667eea, #764ba2); }
-    .style-gradient .time-display { color: #fff; font-family: 'Roboto Mono', monospace; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-    .style-gradient .date-display { color: rgba(255,255,255,0.9); }
+    /* 9. 紫色 */
+    .style-purple {
+      background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+      box-shadow: 0 4px 20px rgba(124,58,237,0.3);
+    }
+    .style-purple .time-display { color: #fff; font-family: 'Space Mono', monospace; }
+    .style-purple .date-display { color: #ddd6fe; }
 
-    /* 紫晶 */
-    .style-amethyst { background: linear-gradient(135deg, #4a1c6b, #6b2d9c); border: 1px solid #9d4edd; }
-    .style-amethyst .time-display { color: #e0aaff; font-family: 'Orbitron', monospace; text-shadow: 0 0 15px #c77dff; }
-    .style-amethyst .date-display { color: #c77dff; }
+    /* 10. 玫红 */
+    .style-rose {
+      background: linear-gradient(135deg, #e11d48 0%, #f43f5e 100%);
+      box-shadow: 0 4px 20px rgba(225,29,72,0.3);
+    }
+    .style-rose .time-display { color: #fff; font-family: 'JetBrains Mono', monospace; }
+    .style-rose .date-display { color: #fecdd3; }
 
-    /* 海洋 */
-    .style-ocean { background: linear-gradient(135deg, #0077b6, #00b4d8); }
-    .style-ocean .time-display { color: #caf0f8; font-family: 'JetBrains Mono', monospace; }
-    .style-ocean .date-display { color: #90e0ef; }
+    /* 11. 橙色 */
+    .style-orange {
+      background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+      box-shadow: 0 4px 20px rgba(234,88,12,0.3);
+    }
+    .style-orange .time-display { color: #fff; font-family: 'Fira Code', monospace; }
+    .style-orange .date-display { color: #fed7aa; }
 
-    /* 日落 */
-    .style-sunset { background: linear-gradient(135deg, #ff6b6b, #feca57); }
-    .style-sunset .time-display { color: #fff; font-family: 'Source Code Pro', monospace; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-    .style-sunset .date-display { color: rgba(255,255,255,0.9); }
+    /* 12. 翠绿 */
+    .style-emerald {
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+      box-shadow: 0 4px 20px rgba(5,150,105,0.3);
+    }
+    .style-emerald .time-display { color: #fff; font-family: 'JetBrains Mono', monospace; }
+    .style-emerald .date-display { color: #a7f3d0; }
 
-    /* 森林 */
-    .style-forest { background: linear-gradient(135deg, #1e3c2f, #2d5a45); border: 2px solid #4ade80; }
-    .style-forest .time-display { color: #86efac; font-family: 'Fira Code', monospace; }
-    .style-forest .date-display { color: #a7f3d0; }
+    /* 13. 青色 */
+    .style-teal {
+      background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+      box-shadow: 0 4px 20px rgba(13,148,136,0.3);
+    }
+    .style-teal .time-display { color: #fff; font-family: 'IBM Plex Mono', monospace; }
+    .style-teal .date-display { color: #99f6e4; }
 
-    /* 冰霜 */
-    .style-ice { background: linear-gradient(135deg, #e0f7fa, #b2ebf2); border: 1px solid #4dd0e1; }
-    .style-ice .time-display { color: #006064; font-family: 'IBM Plex Mono', monospace; }
-    .style-ice .date-display { color: #00838f; }
+    /* 14. 天蓝 */
+    .style-sky {
+      background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+      box-shadow: 0 4px 20px rgba(2,132,199,0.3);
+    }
+    .style-sky .time-display { color: #fff; font-family: 'Roboto Mono', monospace; }
+    .style-sky .date-display { color: #bae6fd; }
 
-    /* 粉彩 */
-    .style-pastel { background: linear-gradient(135deg, #ffecd2, #fcb69f); border-radius: 20px; }
-    .style-pastel .time-display { color: #8b5cf6; font-family: 'Space Mono', monospace; }
-    .style-pastel .date-display { color: #a78bfa; }
+    /* 15. 柔粉 */
+    .style-pink {
+      background: #fdf2f8;
+      border: 1px solid #fbcfe8;
+      box-shadow: 0 4px 16px rgba(236,72,153,0.1);
+    }
+    .style-pink .time-display { color: #be185d; font-family: 'IBM Plex Mono', monospace; }
+    .style-pink .date-display { color: #db2777; }
 
-    /* 咖啡 */
-    .style-coffee { background: linear-gradient(135deg, #3e2723, #5d4037); border: 2px solid #a1887f; }
-    .style-coffee .time-display { color: #d7ccc8; font-family: 'IBM Plex Mono', monospace; }
-    .style-coffee .date-display { color: #bcaaa4; }
+    /* 16. 柔绿 */
+    .style-mint {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      box-shadow: 0 4px 16px rgba(16,185,129,0.1);
+    }
+    .style-mint .time-display { color: #047857; font-family: 'JetBrains Mono', monospace; }
+    .style-mint .date-display { color: #059669; }
 
-    /* 玻璃 */
-    .style-glass { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); }
-    .style-glass .time-display { color: #fff; font-family: 'Roboto Mono', monospace; }
-    .style-glass .date-display { color: rgba(255,255,255,0.8); }
+    /* 17. 柔蓝 */
+    .style-soft-blue {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      box-shadow: 0 4px 16px rgba(59,130,246,0.1);
+    }
+    .style-soft-blue .time-display { color: #1d4ed8; font-family: 'Source Code Pro', monospace; }
+    .style-soft-blue .date-display { color: #2563eb; }
 
-    /* 暗黑 */
-    .style-dark { background: linear-gradient(145deg, #1a1a2e, #16213e); border: 1px solid #0f3460; }
-    .style-dark .time-display { color: #e94560; font-family: 'Orbitron', monospace; }
-    .style-dark .date-display { color: #a2d2ff; }
+    /* 18. 暖米 */
+    .style-cream {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      box-shadow: 0 4px 16px rgba(245,158,11,0.1);
+    }
+    .style-cream .time-display { color: #b45309; font-family: 'Source Code Pro', monospace; }
+    .style-cream .date-display { color: #d97706; }
 
-    /* 简约白 */
-    .style-minimal { background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-    .style-minimal .time-display { color: #333; font-family: 'Roboto Mono', monospace; }
-    .style-minimal .date-display { color: #666; }
+    /* 19. 毛玻璃 */
+    .style-glass {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.25);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+    .style-glass .time-display { color: #fff; font-family: 'JetBrains Mono', monospace; }
+    .style-glass .date-display { color: rgba(255,255,255,0.85); }
 
-    /* 极简黑 */
-    .style-noir { background: #0a0a0a; border: 1px solid #333; }
-    .style-noir .time-display { color: #fff; font-family: 'JetBrains Mono', monospace; letter-spacing: 8px; }
-    .style-noir .date-display { color: #666; letter-spacing: 4px; }
+    /* 20. 深玻璃 */
+    .style-glass-dark {
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+    .style-glass-dark .time-display { color: #fff; font-family: 'Fira Code', monospace; }
+    .style-glass-dark .date-display { color: rgba(255,255,255,0.75); }
 
-    /* 复古 */
-    .style-retro { background: #2d2d2d; border: 3px solid #ffcc00; border-radius: 8px; }
-    .style-retro .time-display { color: #ffcc00; font-family: 'Orbitron', monospace; text-shadow: 2px 2px 0 #ff6600; }
-    .style-retro .date-display { color: #ff9900; }
+    /* 21. 线框 */
+    .style-outline {
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.8);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+    .style-outline .time-display { color: #fff; font-family: 'Roboto Mono', monospace; }
+    .style-outline .date-display { color: rgba(255,255,255,0.8); }
 
-    /* 纯文字 */
-    .style-text { background: transparent; padding: 10px; }
-    .style-text .time-display { color: #fff; font-family: 'Roboto Mono', monospace; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
-    .style-text .date-display { color: rgba(255,255,255,0.9); text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
+    /* 22. LED红 */
+    .style-led {
+      background: #0c0c0c;
+      border-radius: 6px;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .style-led .time-display { color: #ef4444; font-family: 'Orbitron', monospace; letter-spacing: 3px; text-shadow: 0 0 12px rgba(239,68,68,0.6); }
+    .style-led .date-display { color: #fca5a5; }
 
-    /* 星空 */
-    .style-starry { background: linear-gradient(180deg, #0f0c29, #302b63, #24243e); border: 1px solid rgba(255,255,255,0.2); }
-    .style-starry .time-display { color: #fff; font-family: 'Space Mono', monospace; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
-    .style-starry .date-display { color: #a78bfa; }
+    /* 23. LED绿 */
+    .style-led-green {
+      background: #0c0c0c;
+      border-radius: 6px;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .style-led-green .time-display { color: #22c55e; font-family: 'Orbitron', monospace; letter-spacing: 3px; text-shadow: 0 0 12px rgba(34,197,94,0.6); }
+    .style-led-green .date-display { color: #86efac; }
 
-    /* 樱花 */
-    .style-sakura { background: linear-gradient(135deg, #ffeef8, #fff0f5); border: 2px solid #ffb7c5; }
-    .style-sakura .time-display { color: #d63384; font-family: 'IBM Plex Mono', monospace; }
-    .style-sakura .date-display { color: #ff69b4; }
+    /* 24. 终端 */
+    .style-terminal {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .style-terminal .time-display { color: #4ade80; font-family: 'Fira Code', monospace; }
+    .style-terminal .date-display { color: #86efac; }
 
-    /* 电竞RGB */
-    .style-rgb { background: #000; border: 2px solid; border-image: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #8b00ff, #ff0000) 1; }
-    .style-rgb .time-display { background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #00ffff, #0000ff, #8b00ff); background-size: 200% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Orbitron', monospace; animation: rgbShift 3s linear infinite; }
-    .style-rgb .date-display { color: #fff; }
-    @keyframes rgbShift { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+    /* 25. 霓虹 */
+    .style-neon {
+      background: rgba(0,0,0,0.85);
+      border: 1px solid #22d3ee;
+      box-shadow: 0 0 20px rgba(34,211,238,0.3);
+    }
+    .style-neon .time-display { color: #22d3ee; font-family: 'Orbitron', monospace; text-shadow: 0 0 15px rgba(34,211,238,0.7); }
+    .style-neon .date-display { color: #67e8f9; }
   </style>
 </head>
 <body>
-  <div id="timeCard" class="time-card style-neon">
+  <div id="timeCard" class="time-card style-white">
     <div id="timeDisplay" class="time-display">00:00:00</div>
     <div id="dateDisplay" class="date-display"></div>
   </div>
 
   <script>
-    // 字体映射
     const fontMap = {
       'jetbrains': "'JetBrains Mono', monospace",
       'fira': "'Fira Code', monospace",
@@ -183,14 +261,13 @@
       'roboto': "'Roboto Mono', monospace"
     };
 
-    // 获取URL参数
     function getParams() {
       const params = new URLSearchParams(window.location.search);
       return {
         timezone: params.get('tz') || 'Asia/Shanghai',
         timeFormat: params.get('tf') || 'HH:mm:ss',
         dateFormat: params.get('df') || '',
-        style: params.get('style') || 'neon',
+        style: params.get('style') || 'white',
         fontSize: params.get('size') || '48',
         color: params.get('color') || null,
         bg: params.get('bg') || null,
@@ -198,7 +275,6 @@
       };
     }
 
-    // 格式化时间
     function formatTime(date, format, timezone) {
       const options = { timeZone: timezone };
       const hours = date.toLocaleString('en-US', { ...options, hour: '2-digit', hour12: false }).padStart(2, '0');
@@ -215,7 +291,6 @@
         .replace('a', hours12.includes('PM') ? 'pm' : 'am');
     }
 
-    // 格式化日期
     function formatDate(date, format, timezone) {
       if (!format) return '';
       const options = { timeZone: timezone };
@@ -233,7 +308,6 @@
         .replace('dddd', weekdayLong);
     }
 
-    // 初始化
     function init() {
       const config = getParams();
       const card = document.getElementById('timeCard');
