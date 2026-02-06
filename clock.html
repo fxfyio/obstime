@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OBS 时间</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Fira+Code:wght@400;700&family=Source+Code+Pro:wght@400;700&family=IBM+Plex+Mono:wght@400;700&family=Space+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      font-family: 'Noto Sans SC', sans-serif;
+    }
+
+    .time-card {
+      padding: 20px 40px;
+      border-radius: 16px;
+      text-align: center;
+      min-width: 320px;
+    }
+
+    .time-display {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      font-variant-numeric: tabular-nums;
+      min-width: 280px;
+      display: inline-block;
+    }
+
+    .date-display {
+      font-size: 18px;
+      margin-top: 8px;
+      opacity: 0.9;
+    }
+
+    /* 霓虹 */
+    .style-neon { background: rgba(0, 0, 0, 0.8); border: 2px solid #00f3ff; box-shadow: 0 0 20px rgba(0, 243, 255, 0.5); }
+    .style-neon .time-display { color: #00f3ff; text-shadow: 0 0 10px #00f3ff, 0 0 20px #00f3ff; font-family: 'Orbitron', monospace; }
+    .style-neon .date-display { color: #ff00ff; text-shadow: 0 0 10px #ff00ff; }
+
+    /* 赛博朋克 */
+    .style-cyber { background: linear-gradient(135deg, #0d0221, #150734); border: 2px solid #ff2a6d; box-shadow: 0 0 30px rgba(255, 42, 109, 0.4); }
+    .style-cyber .time-display { color: #05d9e8; font-family: 'Orbitron', monospace; text-shadow: 0 0 10px #05d9e8, 0 0 20px #ff2a6d; }
+    .style-cyber .date-display { color: #ff2a6d; }
+
+    /* 矩阵 */
+    .style-matrix { background: #000; border: 1px solid #00ff00; }
+    .style-matrix .time-display { color: #00ff00; font-family: 'Fira Code', monospace; text-shadow: 0 0 10px #00ff00; }
+    .style-matrix .date-display { color: #00cc00; }
+
+    /* 极光 */
+    .style-aurora { background: linear-gradient(135deg, #1a1a2e, #0a192f); border: 1px solid rgba(100, 255, 218, 0.3); }
+    .style-aurora .time-display { background: linear-gradient(90deg, #64ffda, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'JetBrains Mono', monospace; }
+    .style-aurora .date-display { color: #64ffda; }
+
+    /* 蒸汽波 */
+    .style-vaporwave { background: linear-gradient(180deg, #ff71ce, #01cdfe, #05ffa1); }
+    .style-vaporwave .time-display { color: #fff; font-family: 'Orbitron', monospace; text-shadow: 3px 3px 0 #ff71ce; }
+    .style-vaporwave .date-display { color: #fff; }
+
+    /* LED */
+    .style-led { background: #111; border: 3px solid #222; border-radius: 8px; }
+    .style-led .time-display { color: #ff0000; font-family: 'Orbitron', monospace; text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; }
+    .style-led .date-display { color: #ff3333; }
+
+    /* 火焰 */
+    .style-fire { background: linear-gradient(180deg, #1a0a00, #2d1810); border: 2px solid #ff4500; }
+    .style-fire .time-display { background: linear-gradient(180deg, #ffff00, #ff8c00, #ff4500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Orbitron', monospace; }
+    .style-fire .date-display { color: #ff8c00; }
+
+    /* 金色 */
+    .style-gold { background: linear-gradient(135deg, #1a1a1a, #2d2d2d); border: 2px solid #ffd700; }
+    .style-gold .time-display { background: linear-gradient(180deg, #ffd700, #ffb700, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Orbitron', monospace; }
+    .style-gold .date-display { color: #ffd700; }
+
+    /* 渐变 */
+    .style-gradient { background: linear-gradient(135deg, #667eea, #764ba2); }
+    .style-gradient .time-display { color: #fff; font-family: 'Roboto Mono', monospace; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+    .style-gradient .date-display { color: rgba(255,255,255,0.9); }
+
+    /* 紫晶 */
+    .style-amethyst { background: linear-gradient(135deg, #4a1c6b, #6b2d9c); border: 1px solid #9d4edd; }
+    .style-amethyst .time-display { color: #e0aaff; font-family: 'Orbitron', monospace; text-shadow: 0 0 15px #c77dff; }
+    .style-amethyst .date-display { color: #c77dff; }
+
+    /* 海洋 */
+    .style-ocean { background: linear-gradient(135deg, #0077b6, #00b4d8); }
+    .style-ocean .time-display { color: #caf0f8; font-family: 'JetBrains Mono', monospace; }
+    .style-ocean .date-display { color: #90e0ef; }
+
+    /* 日落 */
+    .style-sunset { background: linear-gradient(135deg, #ff6b6b, #feca57); }
+    .style-sunset .time-display { color: #fff; font-family: 'Source Code Pro', monospace; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+    .style-sunset .date-display { color: rgba(255,255,255,0.9); }
+
+    /* 森林 */
+    .style-forest { background: linear-gradient(135deg, #1e3c2f, #2d5a45); border: 2px solid #4ade80; }
+    .style-forest .time-display { color: #86efac; font-family: 'Fira Code', monospace; }
+    .style-forest .date-display { color: #a7f3d0; }
+
+    /* 冰霜 */
+    .style-ice { background: linear-gradient(135deg, #e0f7fa, #b2ebf2); border: 1px solid #4dd0e1; }
+    .style-ice .time-display { color: #006064; font-family: 'IBM Plex Mono', monospace; }
+    .style-ice .date-display { color: #00838f; }
+
+    /* 粉彩 */
+    .style-pastel { background: linear-gradient(135deg, #ffecd2, #fcb69f); border-radius: 20px; }
+    .style-pastel .time-display { color: #8b5cf6; font-family: 'Space Mono', monospace; }
+    .style-pastel .date-display { color: #a78bfa; }
+
+    /* 咖啡 */
+    .style-coffee { background: linear-gradient(135deg, #3e2723, #5d4037); border: 2px solid #a1887f; }
+    .style-coffee .time-display { color: #d7ccc8; font-family: 'IBM Plex Mono', monospace; }
+    .style-coffee .date-display { color: #bcaaa4; }
+
+    /* 玻璃 */
+    .style-glass { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); }
+    .style-glass .time-display { color: #fff; font-family: 'Roboto Mono', monospace; }
+    .style-glass .date-display { color: rgba(255,255,255,0.8); }
+
+    /* 暗黑 */
+    .style-dark { background: linear-gradient(145deg, #1a1a2e, #16213e); border: 1px solid #0f3460; }
+    .style-dark .time-display { color: #e94560; font-family: 'Orbitron', monospace; }
+    .style-dark .date-display { color: #a2d2ff; }
+
+    /* 简约白 */
+    .style-minimal { background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+    .style-minimal .time-display { color: #333; font-family: 'Roboto Mono', monospace; }
+    .style-minimal .date-display { color: #666; }
+
+    /* 极简黑 */
+    .style-noir { background: #0a0a0a; border: 1px solid #333; }
+    .style-noir .time-display { color: #fff; font-family: 'JetBrains Mono', monospace; letter-spacing: 8px; }
+    .style-noir .date-display { color: #666; letter-spacing: 4px; }
+
+    /* 复古 */
+    .style-retro { background: #2d2d2d; border: 3px solid #ffcc00; border-radius: 8px; }
+    .style-retro .time-display { color: #ffcc00; font-family: 'Orbitron', monospace; text-shadow: 2px 2px 0 #ff6600; }
+    .style-retro .date-display { color: #ff9900; }
+
+    /* 纯文字 */
+    .style-text { background: transparent; padding: 10px; }
+    .style-text .time-display { color: #fff; font-family: 'Roboto Mono', monospace; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+    .style-text .date-display { color: rgba(255,255,255,0.9); text-shadow: 1px 1px 2px rgba(0,0,0,0.8); }
+
+    /* 星空 */
+    .style-starry { background: linear-gradient(180deg, #0f0c29, #302b63, #24243e); border: 1px solid rgba(255,255,255,0.2); }
+    .style-starry .time-display { color: #fff; font-family: 'Space Mono', monospace; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+    .style-starry .date-display { color: #a78bfa; }
+
+    /* 樱花 */
+    .style-sakura { background: linear-gradient(135deg, #ffeef8, #fff0f5); border: 2px solid #ffb7c5; }
+    .style-sakura .time-display { color: #d63384; font-family: 'IBM Plex Mono', monospace; }
+    .style-sakura .date-display { color: #ff69b4; }
+
+    /* 电竞RGB */
+    .style-rgb { background: #000; border: 2px solid; border-image: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #8b00ff, #ff0000) 1; }
+    .style-rgb .time-display { background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #00ffff, #0000ff, #8b00ff); background-size: 200% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Orbitron', monospace; animation: rgbShift 3s linear infinite; }
+    .style-rgb .date-display { color: #fff; }
+    @keyframes rgbShift { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+  </style>
+</head>
+<body>
+  <div id="timeCard" class="time-card style-neon">
+    <div id="timeDisplay" class="time-display">00:00:00</div>
+    <div id="dateDisplay" class="date-display"></div>
+  </div>
+
+  <script>
+    // 字体映射
+    const fontMap = {
+      'jetbrains': "'JetBrains Mono', monospace",
+      'fira': "'Fira Code', monospace",
+      'source': "'Source Code Pro', monospace",
+      'ibm': "'IBM Plex Mono', monospace",
+      'space': "'Space Mono', monospace",
+      'orbitron': "'Orbitron', monospace",
+      'roboto': "'Roboto Mono', monospace"
+    };
+
+    // 获取URL参数
+    function getParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        timezone: params.get('tz') || 'Asia/Shanghai',
+        timeFormat: params.get('tf') || 'HH:mm:ss',
+        dateFormat: params.get('df') || '',
+        style: params.get('style') || 'neon',
+        fontSize: params.get('size') || '48',
+        color: params.get('color') || null,
+        bg: params.get('bg') || null,
+        font: params.get('font') || null
+      };
+    }
+
+    // 格式化时间
+    function formatTime(date, format, timezone) {
+      const options = { timeZone: timezone };
+      const hours = date.toLocaleString('en-US', { ...options, hour: '2-digit', hour12: false }).padStart(2, '0');
+      const minutes = date.toLocaleString('en-US', { ...options, minute: '2-digit' }).padStart(2, '0');
+      const seconds = date.toLocaleString('en-US', { ...options, second: '2-digit' }).padStart(2, '0');
+      const hours12 = date.toLocaleString('en-US', { ...options, hour: 'numeric', hour12: true });
+      
+      return format
+        .replace('HH', hours.slice(-2))
+        .replace('hh', hours12.split(' ')[0].padStart(2, '0'))
+        .replace('mm', minutes.slice(-2))
+        .replace('ss', seconds.slice(-2))
+        .replace('A', hours12.includes('PM') ? 'PM' : 'AM')
+        .replace('a', hours12.includes('PM') ? 'pm' : 'am');
+    }
+
+    // 格式化日期
+    function formatDate(date, format, timezone) {
+      if (!format) return '';
+      const options = { timeZone: timezone };
+      const year = date.toLocaleString('en-US', { ...options, year: 'numeric' });
+      const month = date.toLocaleString('en-US', { ...options, month: '2-digit' });
+      const day = date.toLocaleString('en-US', { ...options, day: '2-digit' });
+      const weekday = date.toLocaleString('zh-CN', { ...options, weekday: 'short' });
+      const weekdayLong = date.toLocaleString('zh-CN', { ...options, weekday: 'long' });
+      
+      return format
+        .replace('YYYY', year)
+        .replace('MM', month)
+        .replace('DD', day)
+        .replace('ddd', weekday)
+        .replace('dddd', weekdayLong);
+    }
+
+    // 初始化
+    function init() {
+      const config = getParams();
+      const card = document.getElementById('timeCard');
+      const timeDisplay = document.getElementById('timeDisplay');
+      const dateDisplay = document.getElementById('dateDisplay');
+
+      card.className = `time-card style-${config.style}`;
+      if (config.fontSize) timeDisplay.style.fontSize = config.fontSize + 'px';
+      if (config.color) timeDisplay.style.color = '#' + config.color;
+      if (config.bg) card.style.background = '#' + config.bg;
+      if (config.font && fontMap[config.font]) timeDisplay.style.fontFamily = fontMap[config.font];
+
+      function updateTime() {
+        const now = new Date();
+        timeDisplay.textContent = formatTime(now, config.timeFormat, config.timezone);
+        dateDisplay.textContent = formatDate(now, config.dateFormat, config.timezone);
+      }
+
+      updateTime();
+      setInterval(updateTime, 1000);
+    }
+
+    init();
+  </script>
+</body>
+</html>
