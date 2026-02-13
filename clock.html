@@ -510,7 +510,7 @@
       'roboto': "'Roboto Mono', monospace"
     };
 
-    // 获取URL参数
+    // 获取URL参数（lang 用于日期周几显示语言）
     function getParams() {
       const params = new URLSearchParams(window.location.search);
       return {
@@ -521,7 +521,8 @@
         fontSize: params.get('size') || '48',
         color: params.get('color') || null,
         bg: params.get('bg') || null,
-        font: params.get('font') || null
+        font: params.get('font') || null,
+        lang: params.get('lang') || 'zh'
       };
     }
 
@@ -542,15 +543,16 @@
         .replace('a', hours12.includes('PM') ? 'pm' : 'am');
     }
 
-    // 格式化日期
-    function formatDate(date, format, timezone) {
+    // 格式化日期（根据 lang 显示周几的中/英文）
+    function formatDate(date, format, timezone, locale) {
       if (!format) return '';
       const options = { timeZone: timezone };
+      const loc = locale === 'en' ? 'en-US' : 'zh-CN';
       const year = date.toLocaleString('en-US', { ...options, year: 'numeric' });
       const month = date.toLocaleString('en-US', { ...options, month: '2-digit' });
       const day = date.toLocaleString('en-US', { ...options, day: '2-digit' });
-      const weekday = date.toLocaleString('zh-CN', { ...options, weekday: 'short' });
-      const weekdayLong = date.toLocaleString('zh-CN', { ...options, weekday: 'long' });
+      const weekday = date.toLocaleString(loc, { ...options, weekday: 'short' });
+      const weekdayLong = date.toLocaleString(loc, { ...options, weekday: 'long' });
       
       return format
         .replace('YYYY', year)
@@ -594,7 +596,7 @@
         const now = new Date();
         const timeStr = formatTime(now, config.timeFormat, config.timezone);
         timeDisplay.innerHTML = wrapChars(timeStr);
-        dateDisplay.textContent = formatDate(now, config.dateFormat, config.timezone);
+        dateDisplay.textContent = formatDate(now, config.dateFormat, config.timezone, config.lang);
       }
 
       updateTime();

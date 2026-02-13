@@ -41,7 +41,23 @@
         .subtitle {
             text-align: center;
             color: #a0a0a0;
+            margin-bottom: 10px;
+        }
+
+        /* 语言切换 */
+        .lang-switcher {
+            text-align: center;
             margin-bottom: 40px;
+        }
+        .lang-switcher a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 8px;
+            opacity: 0.7;
+        }
+        .lang-switcher a.active {
+            opacity: 1;
+            font-weight: 600;
         }
 
         .config-section {
@@ -397,93 +413,97 @@
 
 <body>
     <div class="container">
-        <h1>OBS 时间显示器</h1>
-        <p class="subtitle">生成自定义时间链接，用于OBS浏览器源</p>
+        <h1 data-i18n="title">OBS 时间显示器</h1>
+        <p class="subtitle" data-i18n="subtitle">生成自定义时间链接，用于OBS浏览器源</p>
+        <div class="lang-switcher">
+            <a href="#" data-lang="zh" class="active">中文</a>
+            <a href="#" data-lang="en">English</a>
+        </div>
 
         <!-- 样式选择 -->
         <div class="config-section">
-            <h2 class="section-title">选择样式</h2>
+            <h2 class="section-title" data-i18n="selectStyle">选择样式</h2>
             <div class="style-grid">
-                <div class="style-option style-light selected" data-style="light"><div class="preview-time">12:00</div><div class="style-name">透明白</div></div>
-                <div class="style-option style-dark" data-style="dark"><div class="preview-time">12:00</div><div class="style-name">透明黑</div></div>
-                <div class="style-option style-stroke-light" data-style="stroke-light"><div class="preview-time">12:00</div><div class="style-name">描边白</div></div>
-                <div class="style-option style-stroke-dark" data-style="stroke-dark"><div class="preview-time">12:00</div><div class="style-name">描边黑</div></div>
-                <div class="style-option style-glass-dark" data-style="glass-dark"><div class="preview-time">12:00</div><div class="style-name">暗底</div></div>
-                <div class="style-option style-glass-light" data-style="glass-light"><div class="preview-time">12:00</div><div class="style-name">亮底</div></div>
-                <div class="style-option style-outline" data-style="outline"><div class="preview-time">12:00</div><div class="style-name">线框</div></div>
-                <div class="style-option style-pill-dark" data-style="pill-dark"><div class="preview-time">12:00</div><div class="style-name">圆角暗</div></div>
-                <div class="style-option style-neon-cyan" data-style="neon-cyan"><div class="preview-time">12:00</div><div class="style-name">霓虹青</div></div>
-                <div class="style-option style-neon-purple" data-style="neon-purple"><div class="preview-time">12:00</div><div class="style-name">霓虹紫</div></div>
-                <div class="style-option style-neon-pink" data-style="neon-pink"><div class="preview-time">12:00</div><div class="style-name">霓虹粉</div></div>
-                <div class="style-option style-neon-green" data-style="neon-green"><div class="preview-time">12:00</div><div class="style-name">霓虹绿</div></div>
-                <div class="style-option style-esports-red" data-style="esports-red"><div class="preview-time">12:00</div><div class="style-name">电竞红</div></div>
-                <div class="style-option style-esports-blue" data-style="esports-blue"><div class="preview-time">12:00</div><div class="style-name">电竞蓝</div></div>
-                <div class="style-option style-rgb" data-style="rgb"><div class="preview-time">12:00</div><div class="style-name">RGB</div></div>
-                <div class="style-option style-led-red" data-style="led-red"><div class="preview-time">12:00</div><div class="style-name">LED红</div></div>
-                <div class="style-option style-led-green" data-style="led-green"><div class="preview-time">12:00</div><div class="style-name">LED绿</div></div>
-                <div class="style-option style-led-blue" data-style="led-blue"><div class="preview-time">12:00</div><div class="style-name">LED蓝</div></div>
-                <div class="style-option style-terminal" data-style="terminal"><div class="preview-time">12:00</div><div class="style-name">终端</div></div>
-                <div class="style-option style-minimal-light" data-style="minimal-light"><div class="preview-time">12:00</div><div class="style-name">简约白</div></div>
-                <div class="style-option style-minimal-dark" data-style="minimal-dark"><div class="preview-time">12:00</div><div class="style-name">简约黑</div></div>
-                <div class="style-option style-business" data-style="business"><div class="preview-time">12:00</div><div class="style-name">商务蓝</div></div>
-                <div class="style-option style-news" data-style="news"><div class="preview-time">12:00</div><div class="style-name">新闻红</div></div>
-                <div class="style-option style-tech" data-style="tech"><div class="preview-time">12:00</div><div class="style-name">科技感</div></div>
-                <div class="style-option style-streaming" data-style="streaming"><div class="preview-time">12:00</div><div class="style-name">直播紫</div></div>
-                <div class="style-option style-rainbow" data-style="rainbow"><div class="preview-time">12:00</div><div class="style-name">彩虹</div></div>
-                <div class="style-option style-aurora" data-style="aurora"><div class="preview-time">12:00</div><div class="style-name">极光</div></div>
-                <div class="style-option style-sunset" data-style="sunset"><div class="preview-time">12:00</div><div class="style-name">日落</div></div>
-                <div class="style-option style-ocean" data-style="ocean"><div class="preview-time">12:00</div><div class="style-name">海洋</div></div>
-                <div class="style-option style-neon-flow" data-style="neon-flow"><div class="preview-time">12:00</div><div class="style-name">流光</div></div>
+                <div class="style-option style-light selected" data-style="light"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="light">透明白</div></div>
+                <div class="style-option style-dark" data-style="dark"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="dark">透明黑</div></div>
+                <div class="style-option style-stroke-light" data-style="stroke-light"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="stroke-light">描边白</div></div>
+                <div class="style-option style-stroke-dark" data-style="stroke-dark"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="stroke-dark">描边黑</div></div>
+                <div class="style-option style-glass-dark" data-style="glass-dark"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="glass-dark">暗底</div></div>
+                <div class="style-option style-glass-light" data-style="glass-light"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="glass-light">亮底</div></div>
+                <div class="style-option style-outline" data-style="outline"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="outline">线框</div></div>
+                <div class="style-option style-pill-dark" data-style="pill-dark"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="pill-dark">圆角暗</div></div>
+                <div class="style-option style-neon-cyan" data-style="neon-cyan"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="neon-cyan">霓虹青</div></div>
+                <div class="style-option style-neon-purple" data-style="neon-purple"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="neon-purple">霓虹紫</div></div>
+                <div class="style-option style-neon-pink" data-style="neon-pink"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="neon-pink">霓虹粉</div></div>
+                <div class="style-option style-neon-green" data-style="neon-green"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="neon-green">霓虹绿</div></div>
+                <div class="style-option style-esports-red" data-style="esports-red"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="esports-red">电竞红</div></div>
+                <div class="style-option style-esports-blue" data-style="esports-blue"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="esports-blue">电竞蓝</div></div>
+                <div class="style-option style-rgb" data-style="rgb"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="rgb">RGB</div></div>
+                <div class="style-option style-led-red" data-style="led-red"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="led-red">LED红</div></div>
+                <div class="style-option style-led-green" data-style="led-green"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="led-green">LED绿</div></div>
+                <div class="style-option style-led-blue" data-style="led-blue"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="led-blue">LED蓝</div></div>
+                <div class="style-option style-terminal" data-style="terminal"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="terminal">终端</div></div>
+                <div class="style-option style-minimal-light" data-style="minimal-light"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="minimal-light">简约白</div></div>
+                <div class="style-option style-minimal-dark" data-style="minimal-dark"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="minimal-dark">简约黑</div></div>
+                <div class="style-option style-business" data-style="business"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="business">商务蓝</div></div>
+                <div class="style-option style-news" data-style="news"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="news">新闻红</div></div>
+                <div class="style-option style-tech" data-style="tech"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="tech">科技感</div></div>
+                <div class="style-option style-streaming" data-style="streaming"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="streaming">直播紫</div></div>
+                <div class="style-option style-rainbow" data-style="rainbow"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="rainbow">彩虹</div></div>
+                <div class="style-option style-aurora" data-style="aurora"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="aurora">极光</div></div>
+                <div class="style-option style-sunset" data-style="sunset"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="sunset">日落</div></div>
+                <div class="style-option style-ocean" data-style="ocean"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="ocean">海洋</div></div>
+                <div class="style-option style-neon-flow" data-style="neon-flow"><div class="preview-time">12:00</div><div class="style-name" data-i18n-style="neon-flow">流光</div></div>
             </div>
         </div>
 
         <!-- 配置选项 -->
         <div class="config-section">
-            <h2 class="section-title">配置选项</h2>
+            <h2 class="section-title" data-i18n="configOptions">配置选项</h2>
 
             <div class="row">
                 <div class="form-group">
-                    <label>时区</label>
+                    <label data-i18n="timezone">时区</label>
                     <select id="timezone">
-                        <option value="Asia/Shanghai">北京时间 (UTC+8)</option>
-                        <option value="Asia/Tokyo">东京时间 (UTC+9)</option>
-                        <option value="Asia/Seoul">首尔时间 (UTC+9)</option>
-                        <option value="Asia/Hong_Kong">香港时间 (UTC+8)</option>
-                        <option value="Asia/Singapore">新加坡时间 (UTC+8)</option>
-                        <option value="America/New_York">纽约时间 (UTC-5/-4)</option>
-                        <option value="America/Los_Angeles">洛杉矶时间 (UTC-8/-7)</option>
-                        <option value="Europe/London">伦敦时间 (UTC+0/+1)</option>
-                        <option value="Europe/Paris">巴黎时间 (UTC+1/+2)</option>
-                        <option value="Australia/Sydney">悉尼时间 (UTC+10/+11)</option>
-                        <option value="UTC">UTC</option>
+                        <option value="Asia/Shanghai" data-i18n-tz="Asia/Shanghai">北京时间 (UTC+8)</option>
+                        <option value="Asia/Tokyo" data-i18n-tz="Asia/Tokyo">东京时间 (UTC+9)</option>
+                        <option value="Asia/Seoul" data-i18n-tz="Asia/Seoul">首尔时间 (UTC+9)</option>
+                        <option value="Asia/Hong_Kong" data-i18n-tz="Asia/Hong_Kong">香港时间 (UTC+8)</option>
+                        <option value="Asia/Singapore" data-i18n-tz="Asia/Singapore">新加坡时间 (UTC+8)</option>
+                        <option value="America/New_York" data-i18n-tz="America/New_York">纽约时间 (UTC-5/-4)</option>
+                        <option value="America/Los_Angeles" data-i18n-tz="America/Los_Angeles">洛杉矶时间 (UTC-8/-7)</option>
+                        <option value="Europe/London" data-i18n-tz="Europe/London">伦敦时间 (UTC+0/+1)</option>
+                        <option value="Europe/Paris" data-i18n-tz="Europe/Paris">巴黎时间 (UTC+1/+2)</option>
+                        <option value="Australia/Sydney" data-i18n-tz="Australia/Sydney">悉尼时间 (UTC+10/+11)</option>
+                        <option value="UTC" data-i18n-tz="UTC">UTC</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>字体大小 (px)</label>
+                    <label data-i18n="fontSize">字体大小 (px)</label>
                     <input type="number" id="fontSize" value="48" min="12" max="200">
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group">
-                    <label>字体选择</label>
+                    <label data-i18n="fontSelect">字体选择</label>
                     <select id="fontFamily">
-                        <option value="">默认（跟随样式）</option>
-                        <option value="bebas">Bebas Neue（海报艺术）</option>
-                        <option value="righteous">Righteous（复古艺术）</option>
-                        <option value="audiowide">Audiowide（科技艺术）</option>
-                        <option value="comfortaa">Comfortaa（圆润现代）</option>
-                        <option value="quicksand">Quicksand（轻盈优雅）</option>
-                        <option value="rajdhani">Rajdhani（几何科技）</option>
-                        <option value="orbitron">Orbitron（科幻数码）</option>
-                        <option value="jetbrains">JetBrains Mono（等宽清晰）</option>
-                        <option value="fira">Fira Code（等宽连字）</option>
-                        <option value="roboto">Roboto Mono（等宽简洁）</option>
+                        <option value="" data-i18n-font="">默认（跟随样式）</option>
+                        <option value="bebas" data-i18n-font="bebas">Bebas Neue（海报艺术）</option>
+                        <option value="righteous" data-i18n-font="righteous">Righteous（复古艺术）</option>
+                        <option value="audiowide" data-i18n-font="audiowide">Audiowide（科技艺术）</option>
+                        <option value="comfortaa" data-i18n-font="comfortaa">Comfortaa（圆润现代）</option>
+                        <option value="quicksand" data-i18n-font="quicksand">Quicksand（轻盈优雅）</option>
+                        <option value="rajdhani" data-i18n-font="rajdhani">Rajdhani（几何科技）</option>
+                        <option value="orbitron" data-i18n-font="orbitron">Orbitron（科幻数码）</option>
+                        <option value="jetbrains" data-i18n-font="jetbrains">JetBrains Mono（等宽清晰）</option>
+                        <option value="fira" data-i18n-font="fira">Fira Code（等宽连字）</option>
+                        <option value="roboto" data-i18n-font="roboto">Roboto Mono（等宽简洁）</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>字体预览</label>
+                    <label data-i18n="fontPreview">字体预览</label>
                     <div id="fontPreview"
                         style="font-family: 'JetBrains Mono', monospace; font-size: 24px; padding: 12px 16px; background: rgba(255,255,255,0.1); border-radius: 8px; text-align: center;">
                         12:34:56</div>
@@ -492,7 +512,7 @@
 
             <div class="row">
                 <div class="form-group">
-                    <label>时间格式</label>
+                    <label data-i18n="timeFormat">时间格式</label>
                     <input type="text" id="timeFormat" value="HH:mm:ss" placeholder="HH:mm:ss">
                     <div class="format-examples">
                         <span class="format-tag" data-format="HH:mm:ss">HH:mm:ss</span>
@@ -500,11 +520,11 @@
                         <span class="format-tag" data-format="hh:mm:ss A">hh:mm:ss A</span>
                         <span class="format-tag" data-format="hh:mm A">hh:mm A</span>
                     </div>
-                    <p class="tip">HH=24小时, hh=12小时, mm=分钟, ss=秒, A=AM/PM</p>
+                    <p class="tip" data-i18n="timeFormatTip">HH=24小时, hh=12小时, mm=分钟, ss=秒, A=AM/PM</p>
                 </div>
 
                 <div class="form-group">
-                    <label>日期格式 (可选)</label>
+                    <label data-i18n="dateFormat">日期格式 (可选)</label>
                     <input type="text" id="dateFormat" value="" placeholder="留空则不显示日期">
                     <div class="format-examples">
                         <span class="format-tag" data-format="YYYY-MM-DD">YYYY-MM-DD</span>
@@ -512,46 +532,142 @@
                         <span class="format-tag" data-format="YYYY年MM月DD日">YYYY年MM月DD日</span>
                         <span class="format-tag" data-format="MM月DD日 dddd">MM月DD日 dddd</span>
                     </div>
-                    <p class="tip">YYYY=年, MM=月, DD=日, ddd=周X, dddd=星期X</p>
+                    <p class="tip" data-i18n="dateFormatTip">YYYY=年, MM=月, DD=日, ddd=周X, dddd=星期X</p>
                 </div>
             </div>
         </div>
 
         <!-- 预览 -->
         <div class="config-section">
-            <h2 class="section-title">预览效果</h2>
+            <h2 class="section-title" data-i18n="preview">预览效果</h2>
             <div class="preview-container">
-                <iframe id="preview" src="clock.html?style=neon" frameborder="0"
+                <iframe id="preview" src="clock.html?style=light" frameborder="0"
                     style="width: 100%; height: 150px; background: transparent;"></iframe>
             </div>
 
             <div class="url-output">
-                <label>生成的链接 (复制到OBS浏览器源)</label>
+                <label data-i18n="urlLabel">生成的链接 (复制到OBS浏览器源)</label>
                 <input type="text" id="generatedUrl" readonly>
                 <div class="btn-group">
-                    <button class="btn btn-primary" onclick="copyUrl()">复制链接</button>
-                    <button class="btn btn-primary" onclick="openPreview()">新窗口预览</button>
+                    <button class="btn btn-primary" onclick="copyUrl()" data-i18n="copyLink">复制链接</button>
+                    <button class="btn btn-primary" onclick="openPreview()" data-i18n="openPreview">新窗口预览</button>
                 </div>
             </div>
         </div>
 
         <!-- 使用说明 -->
         <div class="config-section">
-            <h2 class="section-title">使用说明</h2>
+            <h2 class="section-title" data-i18n="usage">使用说明</h2>
             <ol style="line-height: 2; color: #b0b0b0; padding-left: 20px;">
-                <li>在上方选择喜欢的样式和配置</li>
-                <li>复制生成的链接</li>
-                <li>在 OBS 中添加「浏览器」源</li>
-                <li>将链接粘贴到 URL 栏</li>
-                <li>设置合适的宽高 (建议: 宽400-600, 高100-200)</li>
-                <li>勾选「关闭时刷新」选项</li>
+                <li data-i18n="usage1">在上方选择喜欢的样式和配置</li>
+                <li data-i18n="usage2">复制生成的链接</li>
+                <li data-i18n="usage3">在 OBS 中添加「浏览器」源</li>
+                <li data-i18n="usage4">将链接粘贴到 URL 栏</li>
+                <li data-i18n="usage5">设置合适的宽高 (建议: 宽400-600, 高100-200)</li>
+                <li data-i18n="usage6">勾选「关闭时刷新」选项</li>
             </ol>
         </div>
     </div>
 
     <script>
+        // 多语言支持：从 URL 或 localStorage 获取语言
+        const urlParams = new URLSearchParams(location.search);
+        let lang = urlParams.get('lang') || localStorage.getItem('obstime_lang') || 'zh';
+        if (lang !== 'zh' && lang !== 'en') lang = 'zh';
+        localStorage.setItem('obstime_lang', lang);
+        document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+
+        const i18n = {
+            zh: {
+                title: 'OBS 时间显示器',
+                subtitle: '生成自定义时间链接，用于OBS浏览器源',
+                selectStyle: '选择样式',
+                configOptions: '配置选项',
+                timezone: '时区',
+                fontSize: '字体大小 (px)',
+                fontSelect: '字体选择',
+                fontPreview: '字体预览',
+                timeFormat: '时间格式',
+                timeFormatTip: 'HH=24小时, hh=12小时, mm=分钟, ss=秒, A=AM/PM',
+                dateFormat: '日期格式 (可选)',
+                dateFormatTip: 'YYYY=年, MM=月, DD=日, ddd=周X, dddd=星期X',
+                dateFormatPlaceholder: '留空则不显示日期',
+                preview: '预览效果',
+                urlLabel: '生成的链接 (复制到OBS浏览器源)',
+                copyLink: '复制链接',
+                openPreview: '新窗口预览',
+                usage: '使用说明',
+                usage1: '在上方选择喜欢的样式和配置',
+                usage2: '复制生成的链接',
+                usage3: '在 OBS 中添加「浏览器」源',
+                usage4: '将链接粘贴到 URL 栏',
+                usage5: '设置合适的宽高 (建议: 宽400-600, 高100-200)',
+                usage6: '勾选「关闭时刷新」选项',
+                copied: '链接已复制!',
+                styles: { light:'透明白', dark:'透明黑', 'stroke-light':'描边白', 'stroke-dark':'描边黑', 'glass-dark':'暗底', 'glass-light':'亮底', outline:'线框', 'pill-dark':'圆角暗', 'neon-cyan':'霓虹青', 'neon-purple':'霓虹紫', 'neon-pink':'霓虹粉', 'neon-green':'霓虹绿', 'esports-red':'电竞红', 'esports-blue':'电竞蓝', rgb:'RGB', 'led-red':'LED红', 'led-green':'LED绿', 'led-blue':'LED蓝', terminal:'终端', 'minimal-light':'简约白', 'minimal-dark':'简约黑', business:'商务蓝', news:'新闻红', tech:'科技感', streaming:'直播紫', rainbow:'彩虹', aurora:'极光', sunset:'日落', ocean:'海洋', 'neon-flow':'流光' },
+                timezones: { 'Asia/Shanghai':'北京时间 (UTC+8)', 'Asia/Tokyo':'东京时间 (UTC+9)', 'Asia/Seoul':'首尔时间 (UTC+9)', 'Asia/Hong_Kong':'香港时间 (UTC+8)', 'Asia/Singapore':'新加坡时间 (UTC+8)', 'America/New_York':'纽约时间 (UTC-5/-4)', 'America/Los_Angeles':'洛杉矶时间 (UTC-8/-7)', 'Europe/London':'伦敦时间 (UTC+0/+1)', 'Europe/Paris':'巴黎时间 (UTC+1/+2)', 'Australia/Sydney':'悉尼时间 (UTC+10/+11)', 'UTC':'UTC' },
+                fonts: { '':'默认（跟随样式）', bebas:'Bebas Neue（海报艺术）', righteous:'Righteous（复古艺术）', audiowide:'Audiowide（科技艺术）', comfortaa:'Comfortaa（圆润现代）', quicksand:'Quicksand（轻盈优雅）', rajdhani:'Rajdhani（几何科技）', orbitron:'Orbitron（科幻数码）', jetbrains:'JetBrains Mono（等宽清晰）', fira:'Fira Code（等宽连字）', roboto:'Roboto Mono（等宽简洁）' }
+            },
+            en: {
+                title: 'OBS Time Display',
+                subtitle: 'Generate custom time links for OBS browser source',
+                selectStyle: 'Select Style',
+                configOptions: 'Configuration',
+                timezone: 'Timezone',
+                fontSize: 'Font Size (px)',
+                fontSelect: 'Font',
+                fontPreview: 'Font Preview',
+                timeFormat: 'Time Format',
+                timeFormatTip: 'HH=24h, hh=12h, mm=min, ss=sec, A=AM/PM',
+                dateFormat: 'Date Format (optional)',
+                dateFormatTip: 'YYYY=year, MM=month, DD=day, ddd=day short, dddd=day full',
+                dateFormatPlaceholder: 'Leave blank to hide date',
+                preview: 'Preview',
+                urlLabel: 'Generated link (copy to OBS browser source)',
+                copyLink: 'Copy Link',
+                openPreview: 'Open in New Window',
+                usage: 'How to Use',
+                usage1: 'Select your preferred style and settings above',
+                usage2: 'Copy the generated link',
+                usage3: 'Add a "Browser" source in OBS',
+                usage4: 'Paste the link into the URL field',
+                usage5: 'Set appropriate dimensions (recommended: 400-600×100-200)',
+                usage6: 'Check "Refresh when not visible"',
+                copied: 'Link copied!',
+                styles: { light:'Transparent White', dark:'Transparent Black', 'stroke-light':'Outline White', 'stroke-dark':'Outline Black', 'glass-dark':'Dark Base', 'glass-light':'Light Base', outline:'Wireframe', 'pill-dark':'Rounded Dark', 'neon-cyan':'Neon Cyan', 'neon-purple':'Neon Purple', 'neon-pink':'Neon Pink', 'neon-green':'Neon Green', 'esports-red':'Esports Red', 'esports-blue':'Esports Blue', rgb:'RGB', 'led-red':'LED Red', 'led-green':'LED Green', 'led-blue':'LED Blue', terminal:'Terminal', 'minimal-light':'Minimal White', 'minimal-dark':'Minimal Black', business:'Business Blue', news:'News Red', tech:'Tech', streaming:'Streaming Purple', rainbow:'Rainbow', aurora:'Aurora', sunset:'Sunset', ocean:'Ocean', 'neon-flow':'Flowing Light' },
+                timezones: { 'Asia/Shanghai':'Beijing (UTC+8)', 'Asia/Tokyo':'Tokyo (UTC+9)', 'Asia/Seoul':'Seoul (UTC+9)', 'Asia/Hong_Kong':'Hong Kong (UTC+8)', 'Asia/Singapore':'Singapore (UTC+8)', 'America/New_York':'New York (UTC-5/-4)', 'America/Los_Angeles':'Los Angeles (UTC-8/-7)', 'Europe/London':'London (UTC+0/+1)', 'Europe/Paris':'Paris (UTC+1/+2)', 'Australia/Sydney':'Sydney (UTC+10/+11)', 'UTC':'UTC' },
+                fonts: { '':'Default (follow style)', bebas:'Bebas Neue (Poster)', righteous:'Righteous (Retro)', audiowide:'Audiowide (Tech)', comfortaa:'Comfortaa (Modern)', quicksand:'Quicksand (Elegant)', rajdhani:'Rajdhani (Geometric)', orbitron:'Orbitron (Sci-fi)', jetbrains:'JetBrains Mono (Monospace)', fira:'Fira Code (Ligatures)', roboto:'Roboto Mono (Clean)' }
+            }
+        };
+
+        function applyLang(l) {
+            const t = i18n[l] || i18n.zh;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) el.textContent = t[key];
+            });
+            document.querySelectorAll('[data-i18n-style]').forEach(el => {
+                const key = el.getAttribute('data-i18n-style');
+                if (t.styles && t.styles[key]) el.textContent = t.styles[key];
+            });
+            document.querySelectorAll('[data-i18n-tz]').forEach(el => {
+                const key = el.getAttribute('data-i18n-tz');
+                if (t.timezones && t.timezones[key]) el.textContent = t.timezones[key];
+            });
+            document.querySelectorAll('[data-i18n-font]').forEach(el => {
+                const key = el.getAttribute('data-i18n-font') || '';
+                if (t.fonts && t.fonts[key] !== undefined) el.textContent = t.fonts[key];
+            });
+            document.getElementById('dateFormat').placeholder = t.dateFormatPlaceholder || '';
+            document.querySelectorAll('.lang-switcher a').forEach(a => {
+                a.classList.toggle('active', a.dataset.lang === l);
+            });
+            document.title = t.title + ' - OBS';
+        }
+        applyLang(lang);
+
         const config = {
-            style: 'neon',
+            style: 'light',
             timezone: 'Asia/Shanghai',
             timeFormat: 'HH:mm:ss',
             dateFormat: '',
@@ -580,16 +696,17 @@
             return url.origin + path;
         }
 
-        // 生成URL
+        // 生成URL（包含语言参数供 clock 页面日期格式化使用）
         function generateUrl() {
             const params = new URLSearchParams();
 
-            if (config.style !== 'neon') params.set('style', config.style);
+            if (config.style !== 'light') params.set('style', config.style);
             if (config.timezone !== 'Asia/Shanghai') params.set('tz', config.timezone);
             if (config.timeFormat !== 'HH:mm:ss') params.set('tf', config.timeFormat);
             if (config.dateFormat) params.set('df', config.dateFormat);
             if (config.fontSize !== 48) params.set('size', config.fontSize);
             if (config.font) params.set('font', config.font);
+            if (lang === 'en') params.set('lang', 'en');
 
             const queryString = params.toString();
             return getBaseUrl() + (queryString ? '?' + queryString : '');
@@ -662,7 +779,7 @@
         function copyUrl() {
             const url = document.getElementById('generatedUrl').value;
             navigator.clipboard.writeText(url).then(() => {
-                showToast('链接已复制!');
+                showToast(i18n[lang].copied);
             });
         }
 
@@ -679,6 +796,18 @@
             document.body.appendChild(toast);
             setTimeout(() => toast.remove(), 2000);
         }
+
+        // 语言切换点击
+        document.querySelectorAll('.lang-switcher a').forEach(a => {
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                lang = a.dataset.lang;
+                localStorage.setItem('obstime_lang', lang);
+                history.replaceState(null, '', lang === 'zh' ? '?' : '?lang=en');
+                applyLang(lang);
+                updatePreview();
+            });
+        });
 
         // 初始化
         updatePreview();
