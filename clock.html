@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OBS 时间</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Fira+Code:wght@400;500&family=Source+Code+Pro:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Space+Mono:wght@400&family=Playfair+Display:wght@400;500&family=Cormorant+Garamond:wght@400;500&family=Noto+Sans+SC:wght@300;400;500&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Fira+Code:wght@400;500&family=Bebas+Neue&family=Righteous&family=Audiowide&family=Comfortaa:wght@400;500&family=Quicksand:wght@400;500&family=Rajdhani:wght@400;500;600&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -17,346 +17,480 @@
     }
 
     .time-card {
-      padding: 20px 40px;
+      padding: 16px 32px;
       border-radius: 8px;
       text-align: center;
-      min-width: 320px;
-      width: max-content;
     }
 
     .time-display {
       font-size: 48px;
       font-weight: 500;
-      letter-spacing: 2px;
+      /* 等宽数字 */
       font-variant-numeric: tabular-nums;
-      font-feature-settings: "tnum";
-      min-width: 240px;
+      font-feature-settings: "tnum" 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* 每个字符固定宽度 */
+    .time-display .char {
       display: inline-block;
+      text-align: center;
+    }
+    .time-display .digit {
+      width: 0.65em;
+    }
+    .time-display .colon {
+      width: 0.35em;
+    }
+    .time-display .space {
+      width: 0.4em;
     }
 
     .date-display {
       font-size: 14px;
-      margin-top: 8px;
+      margin-top: 6px;
       letter-spacing: 1px;
     }
 
     /* ═══════════════════════════════════════════
-       第一组：极简纯净
+       直播常用：透明叠加
     ═══════════════════════════════════════════ */
     
-    /* 1. 纸 - 如同优质纸张的质感 */
-    .style-paper {
-      background: #fefefe;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    /* 1. 透明白 - 最常用，适合深色背景 */
+    .style-light {
+      background: transparent;
     }
-    .style-paper .time-display { 
-      color: #2c2c2c; 
-      font-family: 'IBM Plex Mono', monospace;
-      font-weight: 400;
-      letter-spacing: 3px;
-    }
-    .style-paper .date-display { color: #888; }
-
-    /* 2. 墨 - 深邃如墨 */
-    .style-ink {
-      background: #1a1a1a;
-    }
-    .style-ink .time-display { 
-      color: #f5f5f5; 
-      font-family: 'IBM Plex Mono', monospace;
-      font-weight: 400;
-      letter-spacing: 3px;
-    }
-    .style-ink .date-display { color: #777; }
-
-    /* 3. 云 - 轻盈透明 */
-    .style-cloud { background: transparent; }
-    .style-cloud .time-display { 
+    .style-light .time-display { 
       color: #fff; 
-      font-family: 'JetBrains Mono', monospace;
-      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 4px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
-    .style-cloud .date-display { 
+    .style-light .date-display { 
       color: rgba(255,255,255,0.85); 
-      text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+      text-shadow: 0 1px 5px rgba(0,0,0,0.5);
     }
 
-    /* 4. 影 - 浮于深色 */
-    .style-shadow { background: transparent; }
-    .style-shadow .time-display { 
+    /* 2. 透明黑 - 适合浅色背景 */
+    .style-dark {
+      background: transparent;
+    }
+    .style-dark .time-display { 
       color: #1a1a1a; 
-      font-family: 'JetBrains Mono', monospace;
-      text-shadow: 0 2px 15px rgba(255,255,255,0.4);
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 4px;
+      text-shadow: 0 1px 5px rgba(255,255,255,0.3);
     }
-    .style-shadow .date-display { color: #333; }
+    .style-dark .date-display { color: #333; }
+
+    /* 3. 描边白 - 更醒目 */
+    .style-stroke-light {
+      background: transparent;
+    }
+    .style-stroke-light .time-display { 
+      color: #fff; 
+      font-family: 'Orbitron', sans-serif;
+      -webkit-text-stroke: 1px rgba(0,0,0,0.3);
+      text-shadow: 0 0 20px rgba(255,255,255,0.3);
+    }
+    .style-stroke-light .date-display { color: rgba(255,255,255,0.8); }
+
+    /* 4. 描边黑 */
+    .style-stroke-dark {
+      background: transparent;
+    }
+    .style-stroke-dark .time-display { 
+      color: #1a1a1a; 
+      font-family: 'Orbitron', sans-serif;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+    }
+    .style-stroke-dark .date-display { color: #333; }
 
     /* ═══════════════════════════════════════════
-       第二组：自然色彩
+       直播常用：半透明卡片
     ═══════════════════════════════════════════ */
 
-    /* 5. 石板 - 沉稳的灰调 */
-    .style-slate {
-      background: #334155;
-      box-shadow: 0 4px 20px rgba(51,65,85,0.3);
+    /* 5. 暗底 - 游戏直播常用 */
+    .style-glass-dark {
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
     }
-    .style-slate .time-display { 
-      color: #f1f5f9; 
-      font-family: 'Fira Code', monospace; 
-    }
-    .style-slate .date-display { color: #94a3b8; }
-
-    /* 6. 海 - 深邃的蓝 */
-    .style-ocean {
-      background: linear-gradient(160deg, #1e3a5f 0%, #234876 100%);
-      box-shadow: 0 4px 24px rgba(30,58,95,0.35);
-    }
-    .style-ocean .time-display { 
-      color: #e8f4fc; 
-      font-family: 'Source Code Pro', monospace; 
-    }
-    .style-ocean .date-display { color: #7eb8e4; }
-
-    /* 7. 森 - 深林绿意 */
-    .style-forest {
-      background: linear-gradient(160deg, #1a3a2f 0%, #234d3f 100%);
-      box-shadow: 0 4px 24px rgba(26,58,47,0.35);
-    }
-    .style-forest .time-display { 
-      color: #e8f5f0; 
-      font-family: 'Fira Code', monospace; 
-    }
-    .style-forest .date-display { color: #7ecba8; }
-
-    /* 8. 栗 - 温暖的棕 */
-    .style-chestnut {
-      background: linear-gradient(160deg, #3d2a1f 0%, #4a352a 100%);
-      box-shadow: 0 4px 24px rgba(61,42,31,0.35);
-    }
-    .style-chestnut .time-display { 
-      color: #f5ebe6; 
-      font-family: 'IBM Plex Mono', monospace; 
-    }
-    .style-chestnut .date-display { color: #c9a892; }
-
-    /* ═══════════════════════════════════════════
-       第三组：柔和色系
-    ═══════════════════════════════════════════ */
-
-    /* 9. 樱 - 淡雅粉 */
-    .style-sakura {
-      background: #fdf6f8;
-      border: 1px solid #f5dce2;
-    }
-    .style-sakura .time-display { 
-      color: #8b4557; 
-      font-family: 'Source Code Pro', monospace; 
-    }
-    .style-sakura .date-display { color: #b86b7d; }
-
-    /* 10. 薄荷 - 清新绿 */
-    .style-mint {
-      background: #f4fbf8;
-      border: 1px solid #c8ece0;
-    }
-    .style-mint .time-display { 
-      color: #2d6a54; 
-      font-family: 'JetBrains Mono', monospace; 
-    }
-    .style-mint .date-display { color: #4a9a7d; }
-
-    /* 11. 天空 - 澄澈蓝 */
-    .style-sky {
-      background: #f5fafd;
-      border: 1px solid #c5e3f5;
-    }
-    .style-sky .time-display { 
-      color: #2563a0; 
-      font-family: 'Fira Code', monospace; 
-    }
-    .style-sky .date-display { color: #4a8bc7; }
-
-    /* 12. 琥珀 - 暖调 */
-    .style-amber {
-      background: #fefbf4;
-      border: 1px solid #f5e6c8;
-    }
-    .style-amber .time-display { 
-      color: #8b6914; 
-      font-family: 'IBM Plex Mono', monospace; 
-    }
-    .style-amber .date-display { color: #b58f2a; }
-
-    /* ═══════════════════════════════════════════
-       第四组：现代配色
-    ═══════════════════════════════════════════ */
-
-    /* 13. 靛蓝 */
-    .style-indigo {
-      background: linear-gradient(135deg, #4338ca 0%, #5b4fdb 100%);
-      box-shadow: 0 4px 20px rgba(67,56,202,0.3);
-    }
-    .style-indigo .time-display { 
+    .style-glass-dark .time-display { 
       color: #fff; 
-      font-family: 'Space Mono', monospace; 
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
     }
-    .style-indigo .date-display { color: #c7d2fe; }
+    .style-glass-dark .date-display { color: rgba(255,255,255,0.7); }
 
-    /* 14. 紫晶 */
-    .style-amethyst {
-      background: linear-gradient(135deg, #7c3aed 0%, #9061f0 100%);
-      box-shadow: 0 4px 20px rgba(124,58,237,0.3);
+    /* 6. 亮底 - 清新风格 */
+    .style-glass-light {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
     }
-    .style-amethyst .time-display { 
+    .style-glass-light .time-display { 
       color: #fff; 
-      font-family: 'Roboto Mono', monospace; 
+      font-family: 'Comfortaa', sans-serif;
     }
-    .style-amethyst .date-display { color: #ddd6fe; }
+    .style-glass-light .date-display { color: rgba(255,255,255,0.8); }
 
-    /* 15. 珊瑚 */
-    .style-coral {
-      background: linear-gradient(135deg, #dc6b5a 0%, #e88373 100%);
-      box-shadow: 0 4px 20px rgba(220,107,90,0.3);
-    }
-    .style-coral .time-display { 
-      color: #fff; 
-      font-family: 'JetBrains Mono', monospace; 
-    }
-    .style-coral .date-display { color: #fde5e1; }
-
-    /* 16. 青瓷 */
-    .style-celadon {
-      background: linear-gradient(135deg, #0d9488 0%, #20b2a5 100%);
-      box-shadow: 0 4px 20px rgba(13,148,136,0.3);
-    }
-    .style-celadon .time-display { 
-      color: #fff; 
-      font-family: 'Fira Code', monospace; 
-    }
-    .style-celadon .date-display { color: #ccfbf1; }
-
-    /* ═══════════════════════════════════════════
-       第五组：质感与效果
-    ═══════════════════════════════════════════ */
-
-    /* 17. 磨砂玻璃 */
-    .style-frosted {
-      background: rgba(255,255,255,0.12);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,255,255,0.18);
-    }
-    .style-frosted .time-display { 
-      color: #fff; 
-      font-family: 'JetBrains Mono', monospace; 
-    }
-    .style-frosted .date-display { color: rgba(255,255,255,0.8); }
-
-    /* 18. 烟雾 */
-    .style-smoke {
-      background: rgba(0,0,0,0.45);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    .style-smoke .time-display { 
-      color: #f0f0f0; 
-      font-family: 'Fira Code', monospace; 
-    }
-    .style-smoke .date-display { color: rgba(255,255,255,0.65); }
-
-    /* 19. 描边 */
+    /* 7. 线框 - 简约专业 */
     .style-outline {
       background: transparent;
-      border: 2px solid rgba(255,255,255,0.75);
-      border-radius: 12px;
+      border: 2px solid rgba(255,255,255,0.8);
+      border-radius: 6px;
     }
     .style-outline .time-display { 
       color: #fff; 
-      font-family: 'Roboto Mono', monospace; 
+      font-family: 'Roboto Mono', monospace;
     }
     .style-outline .date-display { color: rgba(255,255,255,0.8); }
 
-    /* 20. 亚克力 */
-    .style-acrylic {
-      background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75));
-      backdrop-filter: blur(8px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    /* 8. 圆角暗底 */
+    .style-pill-dark {
+      background: rgba(0,0,0,0.7);
+      border-radius: 50px;
+      padding: 12px 40px;
     }
-    .style-acrylic .time-display { 
-      color: #333; 
-      font-family: 'IBM Plex Mono', monospace; 
+    .style-pill-dark .time-display { 
+      color: #fff; 
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 500;
     }
-    .style-acrylic .date-display { color: #666; }
+    .style-pill-dark .date-display { color: rgba(255,255,255,0.7); }
 
     /* ═══════════════════════════════════════════
-       第六组：科技与复古
+       游戏/电竞风格
     ═══════════════════════════════════════════ */
 
-    /* 21. LED */
-    .style-led {
-      background: #080808;
-      border-radius: 4px;
-      box-shadow: inset 0 2px 8px rgba(0,0,0,0.6);
+    /* 9. 霓虹青 - 赛博朋克 */
+    .style-neon-cyan {
+      background: rgba(0,0,0,0.8);
+      border: 1px solid #00f0ff;
+      box-shadow: 0 0 20px rgba(0,240,255,0.3), inset 0 0 20px rgba(0,240,255,0.05);
     }
-    .style-led .time-display { 
-      color: #ff3b30; 
-      font-family: 'Orbitron', monospace; 
+    .style-neon-cyan .time-display { 
+      color: #00f0ff; 
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 20px rgba(0,240,255,0.8);
+    }
+    .style-neon-cyan .date-display { color: #67e8f9; }
+
+    /* 10. 霓虹紫 */
+    .style-neon-purple {
+      background: rgba(0,0,0,0.8);
+      border: 1px solid #bf00ff;
+      box-shadow: 0 0 20px rgba(191,0,255,0.3), inset 0 0 20px rgba(191,0,255,0.05);
+    }
+    .style-neon-purple .time-display { 
+      color: #d946ef; 
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 20px rgba(217,70,239,0.8);
+    }
+    .style-neon-purple .date-display { color: #e879f9; }
+
+    /* 11. 霓虹粉 */
+    .style-neon-pink {
+      background: rgba(0,0,0,0.8);
+      border: 1px solid #ff0080;
+      box-shadow: 0 0 20px rgba(255,0,128,0.3);
+    }
+    .style-neon-pink .time-display { 
+      color: #ff0080; 
+      font-family: 'Audiowide', sans-serif;
+      text-shadow: 0 0 20px rgba(255,0,128,0.8);
+    }
+    .style-neon-pink .date-display { color: #ff6eb4; }
+
+    /* 12. 霓虹绿 - 黑客风格 */
+    .style-neon-green {
+      background: rgba(0,0,0,0.85);
+      border: 1px solid #00ff00;
+      box-shadow: 0 0 15px rgba(0,255,0,0.2);
+    }
+    .style-neon-green .time-display { 
+      color: #00ff00; 
+      font-family: 'Fira Code', monospace;
+      text-shadow: 0 0 15px rgba(0,255,0,0.6);
+    }
+    .style-neon-green .date-display { color: #4ade80; }
+
+    /* 13. 电竞红 */
+    .style-esports-red {
+      background: linear-gradient(135deg, rgba(20,0,0,0.9), rgba(40,0,0,0.9));
+      border-left: 3px solid #ff0000;
+    }
+    .style-esports-red .time-display { 
+      color: #ff4444; 
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+      text-shadow: 0 0 10px rgba(255,0,0,0.5);
+    }
+    .style-esports-red .date-display { color: #ff8888; }
+
+    /* 14. 电竞蓝 */
+    .style-esports-blue {
+      background: linear-gradient(135deg, rgba(0,0,20,0.9), rgba(0,0,40,0.9));
+      border-left: 3px solid #0080ff;
+    }
+    .style-esports-blue .time-display { 
+      color: #4da6ff; 
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+      text-shadow: 0 0 10px rgba(0,128,255,0.5);
+    }
+    .style-esports-blue .date-display { color: #99ccff; }
+
+    /* 15. RGB渐变 */
+    .style-rgb {
+      background: rgba(0,0,0,0.85);
+      border: 2px solid transparent;
+      border-image: linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff0000) 1;
+      animation: rgb-border 3s linear infinite;
+    }
+    .style-rgb .time-display { 
+      color: #fff; 
+      font-family: 'Orbitron', sans-serif;
+    }
+    .style-rgb .date-display { color: #aaa; }
+
+    /* ═══════════════════════════════════════════
+       LED/数码风格
+    ═══════════════════════════════════════════ */
+
+    /* 16. LED红 - 经典 */
+    .style-led-red {
+      background: #0a0a0a;
+      border-radius: 4px;
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.8);
+    }
+    .style-led-red .time-display { 
+      color: #ff3333; 
+      font-family: 'Orbitron', sans-serif;
       letter-spacing: 4px;
-      text-shadow: 0 0 15px rgba(255,59,48,0.6);
+      text-shadow: 0 0 15px rgba(255,51,51,0.7);
     }
-    .style-led .date-display { color: #ff6b60; }
+    .style-led-red .date-display { color: #ff6666; }
 
-    /* 22. 矩阵 */
-    .style-matrix {
-      background: #0a0f0a;
+    /* 17. LED绿 */
+    .style-led-green {
+      background: #0a0a0a;
       border-radius: 4px;
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.8);
     }
-    .style-matrix .time-display { 
-      color: #00ff41; 
-      font-family: 'Fira Code', monospace; 
-      text-shadow: 0 0 12px rgba(0,255,65,0.5);
+    .style-led-green .time-display { 
+      color: #33ff33; 
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 4px;
+      text-shadow: 0 0 15px rgba(51,255,51,0.7);
     }
-    .style-matrix .date-display { color: #66ff8c; }
+    .style-led-green .date-display { color: #66ff66; }
 
-    /* 23. 终端 */
+    /* 18. LED蓝 */
+    .style-led-blue {
+      background: #0a0a0a;
+      border-radius: 4px;
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.8);
+    }
+    .style-led-blue .time-display { 
+      color: #3399ff; 
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 4px;
+      text-shadow: 0 0 15px rgba(51,153,255,0.7);
+    }
+    .style-led-blue .date-display { color: #66b3ff; }
+
+    /* 19. 终端绿 */
     .style-terminal {
-      background: #1e1e2e;
-      border: 1px solid #313244;
+      background: #0d1117;
+      border: 1px solid #30363d;
       border-radius: 6px;
     }
     .style-terminal .time-display { 
-      color: #a6e3a1; 
-      font-family: 'JetBrains Mono', monospace; 
+      color: #58a6ff; 
+      font-family: 'JetBrains Mono', monospace;
     }
-    .style-terminal .date-display { color: #94e2d5; }
+    .style-terminal .date-display { color: #8b949e; }
 
-    /* 24. 霓虹 */
-    .style-neon {
-      background: rgba(10,10,20,0.9);
-      border: 1px solid #06b6d4;
-      box-shadow: 0 0 25px rgba(6,182,212,0.25);
-      border-radius: 6px;
-    }
-    .style-neon .time-display { 
-      color: #22d3ee; 
-      font-family: 'Orbitron', monospace; 
-      text-shadow: 0 0 20px rgba(34,211,238,0.6);
-    }
-    .style-neon .date-display { color: #67e8f9; }
+    /* ═══════════════════════════════════════════
+       专业/商务风格
+    ═══════════════════════════════════════════ */
 
-    /* 25. 老式打字机 */
-    .style-typewriter {
-      background: #f5f2eb;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    /* 20. 简约白 */
+    .style-minimal-light {
+      background: #ffffff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
-    .style-typewriter .time-display { 
-      color: #2a2520; 
+    .style-minimal-light .time-display { 
+      color: #1a1a1a; 
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 3px;
+    }
+    .style-minimal-light .date-display { color: #666; }
+
+    /* 21. 简约黑 */
+    .style-minimal-dark {
+      background: #1a1a1a;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .style-minimal-dark .time-display { 
+      color: #f5f5f5; 
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 3px;
+    }
+    .style-minimal-dark .date-display { color: #888; }
+
+    /* 22. 商务蓝 */
+    .style-business {
+      background: linear-gradient(135deg, #1e3a5f, #2d4a6f);
+      box-shadow: 0 4px 20px rgba(30,58,95,0.4);
+    }
+    .style-business .time-display { 
+      color: #fff; 
       font-family: 'Roboto Mono', monospace;
-      font-weight: 400;
     }
-    .style-typewriter .date-display { color: #5a5550; }
+    .style-business .date-display { color: #a5c4e8; }
+
+    /* 23. 新闻风格 */
+    .style-news {
+      background: linear-gradient(135deg, #c41e3a, #dc143c);
+      border-radius: 4px;
+    }
+    .style-news .time-display { 
+      color: #fff; 
+      font-family: 'Righteous', sans-serif;
+    }
+    .style-news .date-display { color: rgba(255,255,255,0.9); }
+
+    /* 24. 科技感 */
+    .style-tech {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      border: 1px solid #334155;
+    }
+    .style-tech .time-display { 
+      color: #38bdf8; 
+      font-family: 'Audiowide', sans-serif;
+    }
+    .style-tech .date-display { color: #94a3b8; }
+
+    /* 25. 直播热门 - 渐变紫蓝 */
+    .style-streaming {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      box-shadow: 0 4px 20px rgba(102,126,234,0.4);
+    }
+    .style-streaming .time-display { 
+      color: #fff; 
+      font-family: 'Comfortaa', sans-serif;
+      font-weight: 500;
+    }
+    .style-streaming .date-display { color: rgba(255,255,255,0.85); }
+
+    /* ═══════════════════════════════════════════
+       动态渐变效果
+    ═══════════════════════════════════════════ */
+
+    /* 26. 彩虹边框 - 旋转动画 */
+    @property --angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    .style-rainbow {
+      background: #0a0a0a;
+      border: 3px solid transparent;
+      background-image: linear-gradient(#0a0a0a, #0a0a0a), 
+                        conic-gradient(from var(--angle), #ff0000, #ff8000, #ffff00, #00ff00, #00ffff, #0080ff, #8000ff, #ff0080, #ff0000);
+      background-origin: border-box;
+      background-clip: padding-box, border-box;
+      animation: rotate-border 2s linear infinite;
+    }
+    .style-rainbow .time-display { 
+      color: #fff; 
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 4px;
+    }
+    .style-rainbow .date-display { color: #aaa; }
+
+    /* 27. 极光边框 */
+    .style-aurora {
+      background: #0a0a0a;
+      border: 3px solid transparent;
+      background-image: linear-gradient(#0a0a0a, #0a0a0a), 
+                        conic-gradient(from var(--angle), #00c6ff, #0072ff, #7209b7, #a855f7, #00c6ff);
+      background-origin: border-box;
+      background-clip: padding-box, border-box;
+      animation: rotate-border 3s linear infinite;
+    }
+    .style-aurora .time-display { 
+      color: #a5b4fc; 
+      font-family: 'Orbitron', sans-serif;
+    }
+    .style-aurora .date-display { color: #7dd3fc; }
+
+    /* 28. 日落边框 */
+    .style-sunset {
+      background: #0a0a0a;
+      border: 3px solid transparent;
+      background-image: linear-gradient(#0a0a0a, #0a0a0a), 
+                        conic-gradient(from var(--angle), #f12711, #f5af19, #ff6b35, #ef4444, #f12711);
+      background-origin: border-box;
+      background-clip: padding-box, border-box;
+      animation: rotate-border 2.5s linear infinite;
+    }
+    .style-sunset .time-display { 
+      color: #fbbf24; 
+      font-family: 'Righteous', sans-serif;
+    }
+    .style-sunset .date-display { color: #fb923c; }
+
+    /* 29. 海洋边框 */
+    .style-ocean {
+      background: #0a0a0a;
+      border: 3px solid transparent;
+      background-image: linear-gradient(#0a0a0a, #0a0a0a), 
+                        conic-gradient(from var(--angle), #0077b6, #00b4d8, #90e0ef, #06b6d4, #0077b6);
+      background-origin: border-box;
+      background-clip: padding-box, border-box;
+      animation: rotate-border 3s linear infinite;
+    }
+    .style-ocean .time-display { 
+      color: #22d3ee; 
+      font-family: 'Comfortaa', sans-serif;
+    }
+    .style-ocean .date-display { color: #67e8f9; }
+
+    /* 30. 霓虹流光边框 */
+    .style-neon-flow {
+      background: #0a0a0a;
+      border: 3px solid transparent;
+      background-image: linear-gradient(#0a0a0a, #0a0a0a), 
+                        conic-gradient(from var(--angle), #ff0080, #00ffff, #ff00ff, #00ff88, #ff0080);
+      background-origin: border-box;
+      background-clip: padding-box, border-box;
+      animation: rotate-border 1.5s linear infinite;
+    }
+    .style-neon-flow .time-display { 
+      color: #fff; 
+      font-family: 'Audiowide', sans-serif;
+    }
+    .style-neon-flow .date-display { color: #aaa; }
+
+    @keyframes rotate-border {
+      to { --angle: 360deg; }
+    }
+
+    @keyframes rgb-border {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
   </style>
 </head>
 <body>
-  <div id="timeCard" class="time-card style-paper">
+  <div id="timeCard" class="time-card style-light">
     <div id="timeDisplay" class="time-display">00:00:00</div>
     <div id="dateDisplay" class="date-display"></div>
   </div>
@@ -364,15 +498,16 @@
   <script>
     // 字体映射
     const fontMap = {
+      'bebas': "'Bebas Neue', sans-serif",
+      'righteous': "'Righteous', sans-serif",
+      'audiowide': "'Audiowide', sans-serif",
+      'comfortaa': "'Comfortaa', sans-serif",
+      'quicksand': "'Quicksand', sans-serif",
+      'rajdhani': "'Rajdhani', sans-serif",
+      'orbitron': "'Orbitron', monospace",
       'jetbrains': "'JetBrains Mono', monospace",
       'fira': "'Fira Code', monospace",
-      'source': "'Source Code Pro', monospace",
-      'ibm': "'IBM Plex Mono', monospace",
-      'space': "'Space Mono', monospace",
-      'orbitron': "'Orbitron', monospace",
-      'roboto': "'Roboto Mono', monospace",
-      'playfair': "'Playfair Display', serif",
-      'cormorant': "'Cormorant Garamond', serif"
+      'roboto': "'Roboto Mono', monospace"
     };
 
     // 获取URL参数
@@ -382,7 +517,7 @@
         timezone: params.get('tz') || 'Asia/Shanghai',
         timeFormat: params.get('tf') || 'HH:mm:ss',
         dateFormat: params.get('df') || '',
-        style: params.get('style') || 'paper',
+        style: params.get('style') || 'light',
         fontSize: params.get('size') || '48',
         color: params.get('color') || null,
         bg: params.get('bg') || null,
@@ -439,10 +574,26 @@
       if (config.bg) card.style.background = '#' + config.bg;
       if (config.font && fontMap[config.font]) timeDisplay.style.fontFamily = fontMap[config.font];
 
+      // 把时间字符串转换为固定宽度的span
+      function wrapChars(str) {
+        return str.split('').map(char => {
+          if (/\d/.test(char)) {
+            return `<span class="char digit">${char}</span>`;
+          } else if (char === ':') {
+            return `<span class="char colon">${char}</span>`;
+          } else if (char === ' ') {
+            return `<span class="char space">&nbsp;</span>`;
+          } else {
+            return `<span class="char">${char}</span>`;
+          }
+        }).join('');
+      }
+
       // 更新时间
       function updateTime() {
         const now = new Date();
-        timeDisplay.textContent = formatTime(now, config.timeFormat, config.timezone);
+        const timeStr = formatTime(now, config.timeFormat, config.timezone);
+        timeDisplay.innerHTML = wrapChars(timeStr);
         dateDisplay.textContent = formatDate(now, config.dateFormat, config.timezone);
       }
 

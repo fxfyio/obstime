@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OBS 时间配置器</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Fira+Code:wght@400;700&family=Source+Code+Pro:wght@400;700&family=IBM+Plex+Mono:wght@400;700&family=Space+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Fira+Code:wght@400;500&family=Bebas+Neue&family=Righteous&family=Audiowide&family=Comfortaa:wght@400;500&family=Quicksand:wght@400;500&family=Rajdhani:wght@400;500;600&family=Noto+Sans+SC:wght@400;500&display=swap"
         rel="stylesheet">
     <style>
         * {
@@ -129,94 +129,154 @@
             opacity: 0.8;
         }
 
-        /* 样式预览 - 极简纯净 */
-        .style-paper { background: #fefefe; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-        .style-paper .preview-time { color: #2c2c2c; }
-        .style-paper .style-name { color: #888; }
+        /* 透明叠加 */
+        .style-light { background: rgba(60,60,60,0.5); }
+        .style-light .preview-time { color: #fff; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
 
-        .style-ink { background: #1a1a1a; }
-        .style-ink .preview-time { color: #f5f5f5; }
+        .style-dark { background: rgba(200,200,200,0.6); }
+        .style-dark .preview-time { color: #1a1a1a; }
+        .style-dark .style-name { color: #333; }
 
-        .style-cloud { background: rgba(80,80,80,0.5); }
-        .style-cloud .preview-time { color: #fff; }
+        .style-stroke-light { background: rgba(60,60,60,0.5); }
+        .style-stroke-light .preview-time { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
 
-        .style-shadow { background: rgba(200,200,200,0.6); }
-        .style-shadow .preview-time { color: #1a1a1a; }
-        .style-shadow .style-name { color: #333; }
+        .style-stroke-dark { background: rgba(200,200,200,0.6); }
+        .style-stroke-dark .preview-time { color: #1a1a1a; }
+        .style-stroke-dark .style-name { color: #333; }
 
-        /* 样式预览 - 自然色彩 */
-        .style-slate { background: #334155; }
-        .style-slate .preview-time { color: #f1f5f9; }
+        /* 半透明卡片 */
+        .style-glass-dark { background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); }
+        .style-glass-dark .preview-time { color: #fff; }
 
-        .style-ocean { background: linear-gradient(160deg, #1e3a5f, #234876); }
-        .style-ocean .preview-time { color: #e8f4fc; }
+        .style-glass-light { background: rgba(255,255,255,0.15); backdrop-filter: blur(5px); }
+        .style-glass-light .preview-time { color: #fff; }
 
-        .style-forest { background: linear-gradient(160deg, #1a3a2f, #234d3f); }
-        .style-forest .preview-time { color: #e8f5f0; }
-
-        .style-chestnut { background: linear-gradient(160deg, #3d2a1f, #4a352a); }
-        .style-chestnut .preview-time { color: #f5ebe6; }
-
-        /* 样式预览 - 柔和色系 */
-        .style-sakura { background: #fdf6f8; border: 1px solid #f5dce2 !important; }
-        .style-sakura .preview-time { color: #8b4557; }
-        .style-sakura .style-name { color: #b86b7d; }
-
-        .style-mint { background: #f4fbf8; border: 1px solid #c8ece0 !important; }
-        .style-mint .preview-time { color: #2d6a54; }
-        .style-mint .style-name { color: #4a9a7d; }
-
-        .style-sky { background: #f5fafd; border: 1px solid #c5e3f5 !important; }
-        .style-sky .preview-time { color: #2563a0; }
-        .style-sky .style-name { color: #4a8bc7; }
-
-        .style-amber { background: #fefbf4; border: 1px solid #f5e6c8 !important; }
-        .style-amber .preview-time { color: #8b6914; }
-        .style-amber .style-name { color: #b58f2a; }
-
-        /* 样式预览 - 现代配色 */
-        .style-indigo { background: linear-gradient(135deg, #4338ca, #5b4fdb); }
-        .style-indigo .preview-time { color: #fff; }
-
-        .style-amethyst { background: linear-gradient(135deg, #7c3aed, #9061f0); }
-        .style-amethyst .preview-time { color: #fff; }
-
-        .style-coral { background: linear-gradient(135deg, #dc6b5a, #e88373); }
-        .style-coral .preview-time { color: #fff; }
-
-        .style-celadon { background: linear-gradient(135deg, #0d9488, #20b2a5); }
-        .style-celadon .preview-time { color: #fff; }
-
-        /* 样式预览 - 质感与效果 */
-        .style-frosted { background: rgba(255,255,255,0.15); backdrop-filter: blur(5px); }
-        .style-frosted .preview-time { color: #fff; }
-
-        .style-smoke { background: rgba(0,0,0,0.45); backdrop-filter: blur(5px); }
-        .style-smoke .preview-time { color: #f0f0f0; }
-
-        .style-outline { background: transparent; border: 2px solid rgba(255,255,255,0.75) !important; border-radius: 12px; }
+        .style-outline { background: transparent; border: 2px solid rgba(255,255,255,0.8) !important; }
         .style-outline .preview-time { color: #fff; }
 
-        .style-acrylic { background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75)); }
-        .style-acrylic .preview-time { color: #333; }
-        .style-acrylic .style-name { color: #666; }
+        .style-pill-dark { background: rgba(0,0,0,0.7); border-radius: 20px; }
+        .style-pill-dark .preview-time { color: #fff; }
 
-        /* 样式预览 - 科技与复古 */
-        .style-led { background: #080808; }
-        .style-led .preview-time { color: #ff3b30; text-shadow: 0 0 8px rgba(255,59,48,0.5); }
+        /* 霓虹/电竞 */
+        .style-neon-cyan { background: rgba(0,0,0,0.8); border: 1px solid #00f0ff !important; }
+        .style-neon-cyan .preview-time { color: #00f0ff; text-shadow: 0 0 8px rgba(0,240,255,0.6); }
 
-        .style-matrix { background: #0a0f0a; }
-        .style-matrix .preview-time { color: #00ff41; text-shadow: 0 0 6px rgba(0,255,65,0.4); }
+        .style-neon-purple { background: rgba(0,0,0,0.8); border: 1px solid #bf00ff !important; }
+        .style-neon-purple .preview-time { color: #d946ef; text-shadow: 0 0 8px rgba(217,70,239,0.6); }
 
-        .style-terminal { background: #1e1e2e; border: 1px solid #313244 !important; }
-        .style-terminal .preview-time { color: #a6e3a1; }
+        .style-neon-pink { background: rgba(0,0,0,0.8); border: 1px solid #ff0080 !important; }
+        .style-neon-pink .preview-time { color: #ff0080; text-shadow: 0 0 8px rgba(255,0,128,0.6); }
 
-        .style-neon { background: rgba(10,10,20,0.9); border: 1px solid #06b6d4 !important; }
-        .style-neon .preview-time { color: #22d3ee; text-shadow: 0 0 8px rgba(34,211,238,0.5); }
+        .style-neon-green { background: rgba(0,0,0,0.85); border: 1px solid #00ff00 !important; }
+        .style-neon-green .preview-time { color: #00ff00; text-shadow: 0 0 8px rgba(0,255,0,0.5); }
 
-        .style-typewriter { background: #f5f2eb; }
-        .style-typewriter .preview-time { color: #2a2520; }
-        .style-typewriter .style-name { color: #5a5550; }
+        .style-esports-red { background: linear-gradient(135deg, rgba(20,0,0,0.9), rgba(40,0,0,0.9)); border-left: 3px solid #ff0000 !important; }
+        .style-esports-red .preview-time { color: #ff4444; }
+
+        .style-esports-blue { background: linear-gradient(135deg, rgba(0,0,20,0.9), rgba(0,0,40,0.9)); border-left: 3px solid #0080ff !important; }
+        .style-esports-blue .preview-time { color: #4da6ff; }
+
+        .style-rgb { background: rgba(0,0,0,0.85); border: 2px solid #ff00ff !important; }
+        .style-rgb .preview-time { color: #fff; }
+
+        /* LED */
+        .style-led-red { background: #0a0a0a; }
+        .style-led-red .preview-time { color: #ff3333; text-shadow: 0 0 8px rgba(255,51,51,0.5); }
+
+        .style-led-green { background: #0a0a0a; }
+        .style-led-green .preview-time { color: #33ff33; text-shadow: 0 0 8px rgba(51,255,51,0.5); }
+
+        .style-led-blue { background: #0a0a0a; }
+        .style-led-blue .preview-time { color: #3399ff; text-shadow: 0 0 8px rgba(51,153,255,0.5); }
+
+        .style-terminal { background: #0d1117; border: 1px solid #30363d !important; }
+        .style-terminal .preview-time { color: #58a6ff; }
+
+        /* 专业/商务 */
+        .style-minimal-light { background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .style-minimal-light .preview-time { color: #1a1a1a; }
+        .style-minimal-light .style-name { color: #666; }
+
+        .style-minimal-dark { background: #1a1a1a; }
+        .style-minimal-dark .preview-time { color: #f5f5f5; }
+
+        .style-business { background: linear-gradient(135deg, #1e3a5f, #2d4a6f); }
+        .style-business .preview-time { color: #fff; }
+
+        .style-news { background: linear-gradient(135deg, #c41e3a, #dc143c); }
+        .style-news .preview-time { color: #fff; }
+
+        .style-tech { background: linear-gradient(135deg, #0f172a, #1e293b); border: 1px solid #334155 !important; }
+        .style-tech .preview-time { color: #38bdf8; }
+
+        .style-streaming { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .style-streaming .preview-time { color: #fff; }
+
+        /* 动态渐变边框 - 使用旋转动画 */
+        .style-rainbow { 
+          background: #0a0a0a;
+          border: 3px solid transparent;
+          background-image: linear-gradient(#0a0a0a, #0a0a0a), 
+                            conic-gradient(from var(--angle, 0deg), #ff0000, #ff8000, #ffff00, #00ff00, #00ffff, #0080ff, #8000ff, #ff0080, #ff0000);
+          background-origin: border-box;
+          background-clip: padding-box, border-box;
+          animation: rotate-border 2s linear infinite;
+        }
+        .style-rainbow .preview-time { color: #fff; }
+
+        .style-aurora { 
+          background: #0a0a0a;
+          border: 3px solid transparent;
+          background-image: linear-gradient(#0a0a0a, #0a0a0a), 
+                            conic-gradient(from var(--angle, 0deg), #00c6ff, #0072ff, #7209b7, #a855f7, #00c6ff);
+          background-origin: border-box;
+          background-clip: padding-box, border-box;
+          animation: rotate-border 3s linear infinite;
+        }
+        .style-aurora .preview-time { color: #a5b4fc; }
+
+        .style-sunset { 
+          background: #0a0a0a;
+          border: 3px solid transparent;
+          background-image: linear-gradient(#0a0a0a, #0a0a0a), 
+                            conic-gradient(from var(--angle, 0deg), #f12711, #f5af19, #ff6b35, #ef4444, #f12711);
+          background-origin: border-box;
+          background-clip: padding-box, border-box;
+          animation: rotate-border 2.5s linear infinite;
+        }
+        .style-sunset .preview-time { color: #fbbf24; }
+
+        .style-ocean { 
+          background: #0a0a0a;
+          border: 3px solid transparent;
+          background-image: linear-gradient(#0a0a0a, #0a0a0a), 
+                            conic-gradient(from var(--angle, 0deg), #0077b6, #00b4d8, #90e0ef, #06b6d4, #0077b6);
+          background-origin: border-box;
+          background-clip: padding-box, border-box;
+          animation: rotate-border 3s linear infinite;
+        }
+        .style-ocean .preview-time { color: #22d3ee; }
+
+        .style-neon-flow { 
+          background: #0a0a0a;
+          border: 3px solid transparent;
+          background-image: linear-gradient(#0a0a0a, #0a0a0a), 
+                            conic-gradient(from var(--angle, 0deg), #ff0080, #00ffff, #ff00ff, #00ff88, #ff0080);
+          background-origin: border-box;
+          background-clip: padding-box, border-box;
+          animation: rotate-border 1.5s linear infinite;
+        }
+        .style-neon-flow .preview-time { color: #fff; }
+
+        @property --angle {
+          syntax: '<angle>';
+          initial-value: 0deg;
+          inherits: false;
+        }
+
+        @keyframes rotate-border {
+          to { --angle: 360deg; }
+        }
 
         .preview-container {
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="10" height="10" fill="%23333"/><rect x="10" y="10" width="10" height="10" fill="%23333"/></svg>');
@@ -344,31 +404,36 @@
         <div class="config-section">
             <h2 class="section-title">选择样式</h2>
             <div class="style-grid">
-                <div class="style-option style-paper selected" data-style="paper"><div class="preview-time">12:00</div><div class="style-name">纸</div></div>
-                <div class="style-option style-ink" data-style="ink"><div class="preview-time">12:00</div><div class="style-name">墨</div></div>
-                <div class="style-option style-cloud" data-style="cloud"><div class="preview-time">12:00</div><div class="style-name">云</div></div>
-                <div class="style-option style-shadow" data-style="shadow"><div class="preview-time">12:00</div><div class="style-name">影</div></div>
-                <div class="style-option style-slate" data-style="slate"><div class="preview-time">12:00</div><div class="style-name">石板</div></div>
-                <div class="style-option style-ocean" data-style="ocean"><div class="preview-time">12:00</div><div class="style-name">海</div></div>
-                <div class="style-option style-forest" data-style="forest"><div class="preview-time">12:00</div><div class="style-name">森</div></div>
-                <div class="style-option style-chestnut" data-style="chestnut"><div class="preview-time">12:00</div><div class="style-name">栗</div></div>
-                <div class="style-option style-sakura" data-style="sakura"><div class="preview-time">12:00</div><div class="style-name">樱</div></div>
-                <div class="style-option style-mint" data-style="mint"><div class="preview-time">12:00</div><div class="style-name">薄荷</div></div>
-                <div class="style-option style-sky" data-style="sky"><div class="preview-time">12:00</div><div class="style-name">天空</div></div>
-                <div class="style-option style-amber" data-style="amber"><div class="preview-time">12:00</div><div class="style-name">琥珀</div></div>
-                <div class="style-option style-indigo" data-style="indigo"><div class="preview-time">12:00</div><div class="style-name">靛蓝</div></div>
-                <div class="style-option style-amethyst" data-style="amethyst"><div class="preview-time">12:00</div><div class="style-name">紫晶</div></div>
-                <div class="style-option style-coral" data-style="coral"><div class="preview-time">12:00</div><div class="style-name">珊瑚</div></div>
-                <div class="style-option style-celadon" data-style="celadon"><div class="preview-time">12:00</div><div class="style-name">青瓷</div></div>
-                <div class="style-option style-frosted" data-style="frosted"><div class="preview-time">12:00</div><div class="style-name">磨砂</div></div>
-                <div class="style-option style-smoke" data-style="smoke"><div class="preview-time">12:00</div><div class="style-name">烟雾</div></div>
-                <div class="style-option style-outline" data-style="outline"><div class="preview-time">12:00</div><div class="style-name">描边</div></div>
-                <div class="style-option style-acrylic" data-style="acrylic"><div class="preview-time">12:00</div><div class="style-name">亚克力</div></div>
-                <div class="style-option style-led" data-style="led"><div class="preview-time">12:00</div><div class="style-name">LED</div></div>
-                <div class="style-option style-matrix" data-style="matrix"><div class="preview-time">12:00</div><div class="style-name">矩阵</div></div>
+                <div class="style-option style-light selected" data-style="light"><div class="preview-time">12:00</div><div class="style-name">透明白</div></div>
+                <div class="style-option style-dark" data-style="dark"><div class="preview-time">12:00</div><div class="style-name">透明黑</div></div>
+                <div class="style-option style-stroke-light" data-style="stroke-light"><div class="preview-time">12:00</div><div class="style-name">描边白</div></div>
+                <div class="style-option style-stroke-dark" data-style="stroke-dark"><div class="preview-time">12:00</div><div class="style-name">描边黑</div></div>
+                <div class="style-option style-glass-dark" data-style="glass-dark"><div class="preview-time">12:00</div><div class="style-name">暗底</div></div>
+                <div class="style-option style-glass-light" data-style="glass-light"><div class="preview-time">12:00</div><div class="style-name">亮底</div></div>
+                <div class="style-option style-outline" data-style="outline"><div class="preview-time">12:00</div><div class="style-name">线框</div></div>
+                <div class="style-option style-pill-dark" data-style="pill-dark"><div class="preview-time">12:00</div><div class="style-name">圆角暗</div></div>
+                <div class="style-option style-neon-cyan" data-style="neon-cyan"><div class="preview-time">12:00</div><div class="style-name">霓虹青</div></div>
+                <div class="style-option style-neon-purple" data-style="neon-purple"><div class="preview-time">12:00</div><div class="style-name">霓虹紫</div></div>
+                <div class="style-option style-neon-pink" data-style="neon-pink"><div class="preview-time">12:00</div><div class="style-name">霓虹粉</div></div>
+                <div class="style-option style-neon-green" data-style="neon-green"><div class="preview-time">12:00</div><div class="style-name">霓虹绿</div></div>
+                <div class="style-option style-esports-red" data-style="esports-red"><div class="preview-time">12:00</div><div class="style-name">电竞红</div></div>
+                <div class="style-option style-esports-blue" data-style="esports-blue"><div class="preview-time">12:00</div><div class="style-name">电竞蓝</div></div>
+                <div class="style-option style-rgb" data-style="rgb"><div class="preview-time">12:00</div><div class="style-name">RGB</div></div>
+                <div class="style-option style-led-red" data-style="led-red"><div class="preview-time">12:00</div><div class="style-name">LED红</div></div>
+                <div class="style-option style-led-green" data-style="led-green"><div class="preview-time">12:00</div><div class="style-name">LED绿</div></div>
+                <div class="style-option style-led-blue" data-style="led-blue"><div class="preview-time">12:00</div><div class="style-name">LED蓝</div></div>
                 <div class="style-option style-terminal" data-style="terminal"><div class="preview-time">12:00</div><div class="style-name">终端</div></div>
-                <div class="style-option style-neon" data-style="neon"><div class="preview-time">12:00</div><div class="style-name">霓虹</div></div>
-                <div class="style-option style-typewriter" data-style="typewriter"><div class="preview-time">12:00</div><div class="style-name">打字机</div></div>
+                <div class="style-option style-minimal-light" data-style="minimal-light"><div class="preview-time">12:00</div><div class="style-name">简约白</div></div>
+                <div class="style-option style-minimal-dark" data-style="minimal-dark"><div class="preview-time">12:00</div><div class="style-name">简约黑</div></div>
+                <div class="style-option style-business" data-style="business"><div class="preview-time">12:00</div><div class="style-name">商务蓝</div></div>
+                <div class="style-option style-news" data-style="news"><div class="preview-time">12:00</div><div class="style-name">新闻红</div></div>
+                <div class="style-option style-tech" data-style="tech"><div class="preview-time">12:00</div><div class="style-name">科技感</div></div>
+                <div class="style-option style-streaming" data-style="streaming"><div class="preview-time">12:00</div><div class="style-name">直播紫</div></div>
+                <div class="style-option style-rainbow" data-style="rainbow"><div class="preview-time">12:00</div><div class="style-name">彩虹</div></div>
+                <div class="style-option style-aurora" data-style="aurora"><div class="preview-time">12:00</div><div class="style-name">极光</div></div>
+                <div class="style-option style-sunset" data-style="sunset"><div class="preview-time">12:00</div><div class="style-name">日落</div></div>
+                <div class="style-option style-ocean" data-style="ocean"><div class="preview-time">12:00</div><div class="style-name">海洋</div></div>
+                <div class="style-option style-neon-flow" data-style="neon-flow"><div class="preview-time">12:00</div><div class="style-name">流光</div></div>
             </div>
         </div>
 
@@ -405,13 +470,16 @@
                     <label>字体选择</label>
                     <select id="fontFamily">
                         <option value="">默认（跟随样式）</option>
-                        <option value="jetbrains">JetBrains Mono（现代清晰）</option>
-                        <option value="fira">Fira Code（连字支持）</option>
-                        <option value="source">Source Code Pro（经典）</option>
-                        <option value="ibm">IBM Plex Mono（专业）</option>
-                        <option value="space">Space Mono（几何科技）</option>
+                        <option value="bebas">Bebas Neue（海报艺术）</option>
+                        <option value="righteous">Righteous（复古艺术）</option>
+                        <option value="audiowide">Audiowide（科技艺术）</option>
+                        <option value="comfortaa">Comfortaa（圆润现代）</option>
+                        <option value="quicksand">Quicksand（轻盈优雅）</option>
+                        <option value="rajdhani">Rajdhani（几何科技）</option>
                         <option value="orbitron">Orbitron（科幻数码）</option>
-                        <option value="roboto">Roboto Mono（简洁）</option>
+                        <option value="jetbrains">JetBrains Mono（等宽清晰）</option>
+                        <option value="fira">Fira Code（等宽连字）</option>
+                        <option value="roboto">Roboto Mono（等宽简洁）</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -493,12 +561,15 @@
 
         // 字体映射
         const fontFamilyMap = {
+            'bebas': "'Bebas Neue', sans-serif",
+            'righteous': "'Righteous', sans-serif",
+            'audiowide': "'Audiowide', sans-serif",
+            'comfortaa': "'Comfortaa', sans-serif",
+            'quicksand': "'Quicksand', sans-serif",
+            'rajdhani': "'Rajdhani', sans-serif",
+            'orbitron': "'Orbitron', monospace",
             'jetbrains': "'JetBrains Mono', monospace",
             'fira': "'Fira Code', monospace",
-            'source': "'Source Code Pro', monospace",
-            'ibm': "'IBM Plex Mono', monospace",
-            'space': "'Space Mono', monospace",
-            'orbitron': "'Orbitron', monospace",
             'roboto': "'Roboto Mono', monospace"
         };
 
