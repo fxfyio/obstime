@@ -2,6 +2,12 @@
 
 一个简单的 OBS 时间显示网站，支持自定义时区、格式和样式。
 
+## 在线预览
+
+**[→ 打开配置页面](https://fxfyio.github.io/obstime/)**
+
+![OBS 时间配置器](screenshot.png)
+
 ## 使用方法
 
 1. 打开 `config.html` 配置页面
